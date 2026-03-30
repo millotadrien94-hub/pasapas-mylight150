@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(grep -l \"CT1\\\\|Consommation\\\\|réseau EDF\" /Users/a.millot/poc-mylight150-pasPasPas/src/components/steps/*.jsx)"
+    ]
+  }
+}
