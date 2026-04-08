@@ -11,8 +11,8 @@ const SCHEMAS = {
 
 const TYPES = [
   { id: "electrique",  label: "Électrique" },
-  { id: "thermo-sec",  label: "Thermo — Contact sec" },
-  { id: "thermo-230",  label: "Thermo — 230V" },
+  { id: "thermo-sec",  label: "Thermodynamique — Contact sec" },
+  { id: "thermo-230",  label: "Thermodynamique — 230V" },
 ];
 
 const STEP_COMMUN = "La pince CT2 est déjà précâblée, vérifier qu'elle soit bien clipsée.";
@@ -24,7 +24,7 @@ const CONTENT = {
       "Placez le pont fourni dans le sachet d'accessoires entre les bornes XPh et XRE1.",
       "Connectez l'alimentation du chauffe-eau : le neutre sur le bornier XNe et la phase sur XRE2.",
     ],
-    items: ["Phase câblée sur sortie CE (CT2), neutre direct", "Pas de contacteur heures creuses en amont"],
+    items: ["Pince refermée et clipsée en direction du disjoncteur 20A", "Pas de contacteur heures creuses en amont"],
   },
   "thermo-sec": {
     instructions: [

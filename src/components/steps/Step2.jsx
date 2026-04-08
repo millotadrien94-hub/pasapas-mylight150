@@ -10,7 +10,7 @@ const INSTRUCTIONS = [
   "Repérer le câble de phase UNIQUE à la sortie du 500mA",
   "Clipsez la pince « CT1 » sur le câble de phase",
   "La flèche doit « viser » le 500mA",
-  "Visser la pince au port « CT1 » de la MG3",
+  "Visser le connecteur de la pince au port « CT1 » de la MG3",
 ];
 
 const INSTRUCTION_OPTIONAL = "Utiliser uniquement des rallonges « mylight150 »";
@@ -18,7 +18,6 @@ const INSTRUCTION_OPTIONAL = "Utiliser uniquement des rallonges « mylight150 »
 const ITEMS = [
   "CT1 sur le bon câble, flèche vers le 500mA",
   "Pince refermée et clipsée",
-  "Vérifier le sens du détrompeur entre la pince et la MG3",
 ];
 
 export default function Step2({ state, setState }) {

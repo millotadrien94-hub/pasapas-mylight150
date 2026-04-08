@@ -117,16 +117,14 @@ export default function App() {
     setTimeout(() => {
       setCurrentStep(newStep);
       setAnimating(false);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "instant" });
     }, 200);
   };
 
   const StepComponent = STEPS[currentStep];
 
   const isLast = getNext(currentStep, appState) === currentStep;
-  const nextLabel = currentStep === IDX.COFFRET
-    ? "Commencer →"
-    : isLast ? "Terminer" : undefined;
+  const nextLabel = isLast ? "Terminer" : undefined;
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
@@ -181,10 +179,14 @@ export default function App() {
         transform: animating ? `translateX(${direction * -16}px)` : "translateX(0)",
         transition: "opacity 0.18s ease, transform 0.18s ease",
       }}>
-        <StepComponent state={appState} setState={setAppState} />
+        <StepComponent
+          state={appState}
+          setState={setAppState}
+          onNext={() => navigate(getNext(currentStep, appState))}
+        />
       </div>
 
-      {currentStep < STEPS.length - 1 && (
+      {currentStep > IDX.COFFRET && currentStep < STEPS.length - 1 && (
         <BottomNav
           onPrev={() => navigate(getPrev(currentStep, appState))}
           onNext={() => navigate(getNext(currentStep, appState))}

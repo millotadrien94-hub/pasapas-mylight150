@@ -6,7 +6,7 @@ const INSTRUCTIONS_CT = [
   "Repérer le câble entre le coffret AC et les panneaux photovoltaïques.",
   "Passez la pince CT3 autour du câble de production.",
   "Flèche doit viser les panneaux photovoltaïques.",
-  "Visser la pince au port \"CT3\" de la MG3.",
+  "Visser le connecteur de la pince au port \"CT3\" de la MG3.",
 ];
 
 const INSTRUCTIONS_SDM = [
@@ -20,7 +20,8 @@ const ITEMS_CT  = ["CT3 sur le câble des panneaux", "Pince refermée et clipsé
 const ITEMS_SDM = ["SDM120 câblé : onduleur en entrée, MG3 en sortie", "Bornes serrées"];
 
 export default function Step4({ state, setState }) {
-  const sensorType = state.sensorType || "ct";
+  const hideSDM = state.coffretSelectionne === "X" && state.typeInstallation === "mono";
+  const sensorType = (hideSDM && state.sensorType === "sdm") ? "ct" : (state.sensorType || "ct");
   const setSensorType = (v) => setState(prev => ({ ...prev, sensorType: v }));
 
   const items = sensorType === "ct" ? ITEMS_CT : ITEMS_SDM;
@@ -38,12 +39,14 @@ export default function Step4({ state, setState }) {
         <h1 className="t-title2">CT3 — Production</h1>
       </div>
 
-      <div style={{ padding: "0 16px" }}>
-        <div className="segmented">
-          <button className={`segmented-item ${sensorType === "ct" ? "active" : ""}`} onClick={() => setSensorType("ct")}>Pince CT3</button>
-          <button className={`segmented-item ${sensorType === "sdm" ? "active" : ""}`} onClick={() => setSensorType("sdm")}>SDM120</button>
+      {!hideSDM && (
+        <div style={{ padding: "0 16px" }}>
+          <div className="segmented">
+            <button className={`segmented-item ${sensorType === "ct" ? "active" : ""}`} onClick={() => setSensorType("ct")}>Pince CT3</button>
+            <button className={`segmented-item ${sensorType === "sdm" ? "active" : ""}`} onClick={() => setSensorType("sdm")}>SDM120</button>
+          </div>
         </div>
-      </div>
+      )}
 
       <div style={{ padding: "0 16px" }}>
         <div className="notice notice-yellow">

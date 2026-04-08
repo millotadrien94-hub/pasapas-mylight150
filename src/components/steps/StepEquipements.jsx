@@ -14,6 +14,12 @@ const EQUIPEMENTS = [
     desc: "Véhicule électrique — monophasé",
     icon: iconBdr,
   },
+  {
+    id: "AUCUN",
+    label: "Aucun équipement",
+    desc: null,
+    icon: null,
+  },
 ];
 
 export default function StepEquipements({ state, setState }) {
@@ -22,16 +28,21 @@ export default function StepEquipements({ state, setState }) {
 
   const toggle = (id) => {
     if (id === "BdR" && isTri) return;
-    const next = selected.includes(id)
-      ? selected.filter(e => e !== id)
-      : [...selected, id];
+    if (id === "AUCUN") {
+      setState(prev => ({ ...prev, equipements: selected.includes("AUCUN") ? [] : ["AUCUN"] }));
+      return;
+    }
+    const withoutAucun = selected.filter(e => e !== "AUCUN");
+    const next = withoutAucun.includes(id)
+      ? withoutAucun.filter(e => e !== id)
+      : [...withoutAucun, id];
     setState(prev => ({ ...prev, equipements: next }));
   };
 
   return (
     <div className="step-page">
       <div className="step-page-header">
-        <h1 className="t-large-title">Équipements</h1>
+        <h1 className="t-large-title">Équipements à piloter</h1>
         <p style={{ fontSize: 17, color: "var(--label-2)", marginTop: 6 }}>
           Quels équipements seront raccordés au coffret ?
         </p>
@@ -57,19 +68,25 @@ export default function StepEquipements({ state, setState }) {
                   flexShrink: 0,
                   transition: "background 0.2s",
                 }}>
-                  <img
-                    src={eq.icon}
-                    alt={eq.label}
-                    style={{
-                      width: 24, height: 24,
-                      filter: isSelected ? "brightness(0) invert(1)" : "none",
-                      transition: "filter 0.2s",
-                    }}
-                  />
+                  {eq.icon ? (
+                    <img
+                      src={eq.icon}
+                      alt={eq.label}
+                      style={{
+                        width: 24, height: 24,
+                        filter: isSelected ? "brightness(0) invert(1)" : "none",
+                        transition: "filter 0.2s",
+                      }}
+                    />
+                  ) : (
+                    <span style={{ fontSize: 18, color: isSelected ? "white" : "var(--label-2)" }}>—</span>
+                  )}
                 </div>
                 <div className="list-row-content">
                   <p className="list-row-title" style={{ fontWeight: 500 }}>{eq.label}</p>
-                  <p className="list-row-subtitle">{isDisabled ? "Non compatible avec le triphasé" : eq.desc}</p>
+                  {eq.desc && (
+                    <p className="list-row-subtitle">{isDisabled ? "Non compatible avec le triphasé" : eq.desc}</p>
+                  )}
                 </div>
                 <div className="list-row-trailing">
                   <div className={`check-circle ${isSelected ? "checked" : ""}`}>
@@ -81,18 +98,6 @@ export default function StepEquipements({ state, setState }) {
           })}
         </div>
       </div>
-
-      {selected.length === 0 && (
-        <div style={{ padding: "0 16px" }}>
-          <div className="notice notice-blue">
-            <span className="notice-icon">ℹ️</span>
-            <div className="notice-body">
-              <p className="notice-title">Aucun équipement</p>
-              <p className="notice-text">Vous pouvez continuer sans sélectionner d'équipement.</p>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

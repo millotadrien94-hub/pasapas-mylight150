@@ -2,8 +2,7 @@ import schemaImg from "../../assets/Documentation nouvelle gamme - Schéma Coffr
 import Checklist from "../Checklist";
 
 const ITEMS = [
-  "Etre à proximité du 500mA",
-  "Vérifier qu'il y est un départ unique sous le 500mA",
+  "Etre à proximité du compteur général / 500mA",
 ];
 
 export default function Step1({ state, setState }) {
@@ -22,7 +21,12 @@ export default function Step1({ state, setState }) {
       <div className="step-page-section">
         <div style={{ padding: "0 16px" }}>
           <div className="list-group" style={{ padding: 14 }}>
-            <img src={schemaImg} alt="Schéma de principe" style={{ width: "100%", borderRadius: 8 }} />
+            <img
+              src={schemaImg}
+              alt="Schéma de principe"
+              onClick={() => window.open(schemaImg, "_blank")}
+              style={{ width: "100%", borderRadius: 8, cursor: "zoom-in" }}
+            />
           </div>
         </div>
       </div>

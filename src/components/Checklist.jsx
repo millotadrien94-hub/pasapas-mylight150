@@ -2,7 +2,7 @@ export default function Checklist({ items, checked, onChange, title }) {
   return (
     <div className="step-page-section">
       {title && <p className="list-header" style={{ paddingLeft: 4 }}>{title}</p>}
-      <div className="list-group" style={{ position: "relative" }}>
+      <div className="list-group" style={{ position: "relative", margin: "0 16px" }}>
         {items.map((item, i) => {
           const done = !!checked[i];
           return (

@@ -46,7 +46,6 @@ export default function StepInstallationType({ state, setState }) {
               </div>
               <div className="list-row-content">
                 <p className="list-row-title" style={{ fontWeight: 500 }}>{opt.label}</p>
-                <p className="list-row-subtitle">{opt.desc}</p>
               </div>
               <div className="list-row-trailing">
                 {selected === opt.id && (

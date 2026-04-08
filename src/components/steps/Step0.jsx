@@ -1,11 +1,13 @@
 import coffretImg from "../../assets/coffret.png";
+import mg3Img from "../../assets/smart-master-mg3.jpg";
 
 const COFFRETS_PRINCIPAUX = [
-  { id: "X",   name: "Gamme X",     tags: ["CE", "Borne de recharge"] },
-  { id: "H",   name: "Gamme H",     tags: ["PAC", "Borne de recharge"] },
+  { id: "X",   name: "Robin Plus",  tags: ["CE", "Borne de recharge"], img: coffretImg },
+  { id: "H",   name: "Robin Max",   tags: ["PAC", "Borne de recharge"], img: coffretImg },
+  { id: "MG3", name: "MG3 seul",    tags: ["En pièce détachée"],        img: mg3Img },
 ];
 
-export default function Step0({ state, setState }) {
+export default function Step0({ state, setState, onNext }) {
   const handleSelect = (coffret) => {
     setState(prev => ({
       ...prev,
@@ -13,6 +15,7 @@ export default function Step0({ state, setState }) {
       coffretNom: coffret.name,
       equipements: [],
     }));
+    onNext();
   };
 
   return (
@@ -41,7 +44,7 @@ function CoffretCard({ coffret, selected, onSelect }) {
   return (
     <div className={`sel-card ${selected ? "selected" : ""}`} onClick={() => onSelect(coffret)}>
       <div className="sel-card-thumb">
-        <img src={coffretImg} alt="Coffret mylight150" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        <img src={coffret.img} alt={coffret.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
       </div>
       <div className="sel-card-body">
         <p className="sel-card-name">Coffret {coffret.name}</p>

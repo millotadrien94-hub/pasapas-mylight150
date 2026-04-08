@@ -14,7 +14,7 @@ const STEP_LABELS = [
   "Terminé",               // 10
 ];
 
-const OPTIONAL_STEPS = new Set([6, 7]);
+const OPTIONAL_STEPS = new Set([7]);
 
 // Calcule les étapes visibles selon les équipements sélectionnés
 function getVisible(appState) {
