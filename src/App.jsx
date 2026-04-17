@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import "./index.css";
 import ProgressBar from "./components/ProgressBar";
 import BottomNav from "./components/BottomNav";
@@ -9,6 +9,7 @@ import Step1 from "./components/steps/Step1";
 import Step2 from "./components/steps/Step2";
 import Step3 from "./components/steps/Step3";
 import Step4 from "./components/steps/Step4";
+import StepModbus from "./components/steps/StepModbus";
 import Step5 from "./components/steps/Step5";
 import StepInternet from "./components/steps/StepInternet";
 import Step6 from "./components/steps/Step6";
@@ -23,10 +24,11 @@ const IDX = {
   CT1:        4,
   CT2:        5,
   CE:         6,   // optionnel
-  BDR:        7,   // optionnel
-  INTERNET:   8,
-  TENSION:    9,
-  FIN:        10,
+  MODBUS:     7,   // optionnel, si RS485
+  BDR:        8,   // optionnel
+  INTERNET:   9,
+  TENSION:    10,
+  FIN:        11,
 };
 
 const STEPS = [
@@ -37,6 +39,7 @@ const STEPS = [
   Step2,
   Step3,
   Step4,
+  StepModbus,
   Step5,
   StepInternet,
   Step6,
@@ -45,11 +48,13 @@ const STEPS = [
 
 // Retourne les indices d'étapes visibles selon l'état
 function getVisibleSteps(state) {
-  const hasCE  = (state.equipements || []).includes("CE");
-  const hasBdR = (state.equipements || []).includes("BdR");
+  const hasCE     = (state.equipements || []).includes("CE");
+  const hasBdR    = (state.equipements || []).includes("BdR");
+  const hasModbus = !!state.hasModbus;
   return STEPS.map((_, i) => {
-    if (i === IDX.CE  && !hasCE)  return false;
-    if (i === IDX.BDR && !hasBdR) return false;
+    if (i === IDX.CE     && !hasCE)     return false;
+    if (i === IDX.MODBUS && !hasModbus) return false;
+    if (i === IDX.BDR    && !hasBdR)    return false;
     return true;
   });
 }
@@ -62,11 +67,12 @@ function isStepComplete(stepIdx, state) {
   switch (stepIdx) {
     case IDX.COFFRET:     return !!state.coffretSelectionne;
     case IDX.TYPE_INST:   return !!state.typeInstallation;
-    case IDX.EQUIPEMENTS: return true; // toujours passable
-    case IDX.FIXATION:    return allChecked("step1", 2);
+    case IDX.EQUIPEMENTS: return true;
+    case IDX.FIXATION:    return allChecked("step1", 1);
     case IDX.CT1:         return allChecked("step2", 2);
     case IDX.CT2:         return allChecked("step3", 2);
     case IDX.CE:          return allChecked("step4", 2);
+    case IDX.MODBUS:      return true;
     case IDX.BDR:         return allChecked("step5", 3);
     case IDX.INTERNET:    return true;
     case IDX.TENSION:     return allChecked("step6", 1);
@@ -86,10 +92,12 @@ export default function App() {
     connexionType: "modem",
     equipements: [],
     etapesCochees: {},
+    hasModbus: null,
   });
 
-  const [animating, setAnimating] = useState(false);
-  const [direction, setDirection]  = useState(1);
+  const [animating, setAnimating]         = useState(false);
+  const [direction, setDirection]         = useState(1);
+  const [showModbusModal, setShowModbusModal] = useState(false);
 
   const canNext = isStepComplete(currentStep, appState);
   const isFirst = currentStep === 0;
@@ -119,6 +127,24 @@ export default function App() {
       setAnimating(false);
       window.scrollTo({ top: 0, behavior: "instant" });
     }, 200);
+  };
+
+  const handleNext = () => {
+    if (currentStep === IDX.CE) {
+      setShowModbusModal(true);
+      return;
+    }
+    navigate(getNext(currentStep, appState));
+  };
+
+  const handleModbusAnswer = (hasModbus) => {
+    setShowModbusModal(false);
+    const newState = { ...appState, hasModbus };
+    setAppState(newState);
+    const visible = getVisibleSteps(newState);
+    for (let i = IDX.CE + 1; i < STEPS.length; i++) {
+      if (visible[i]) { navigate(i); return; }
+    }
   };
 
   const StepComponent = STEPS[currentStep];
@@ -189,11 +215,58 @@ export default function App() {
       {currentStep > IDX.COFFRET && currentStep < STEPS.length - 1 && (
         <BottomNav
           onPrev={() => navigate(getPrev(currentStep, appState))}
-          onNext={() => navigate(getNext(currentStep, appState))}
+          onNext={handleNext}
           canNext={canNext}
           isFirst={isFirst}
           nextLabel={nextLabel}
         />
+      )}
+
+      {/* Modale Modbus RS485 */}
+      {showModbusModal && (
+        <div style={{
+          position: "fixed", inset: 0, zIndex: 1000,
+          background: "rgba(0,0,0,0.6)",
+          display: "flex", alignItems: "center", justifyContent: "center",
+        }}>
+          <div style={{
+            background: "#fff", borderRadius: 16, width: "calc(100% - 32px)", maxWidth: 618,
+            padding: "24px 20px 20px",
+            display: "flex", flexDirection: "column", gap: 16,
+            boxShadow: "0px 20px 25px -5px rgba(0,0,0,0.15)",
+          }}>
+            <div>
+              <p style={{ fontWeight: 700, fontSize: 18, color: "#111827", marginBottom: 8 }}>
+                Compteur Modbus RS485
+              </p>
+              <p style={{ fontSize: 15, color: "rgba(60,60,67,0.6)", lineHeight: 1.5 }}>
+                Est-ce que l'installation comporte un compteur Modbus RS485 ?
+              </p>
+            </div>
+            <div style={{ display: "flex", gap: 10 }}>
+              <button
+                onClick={() => handleModbusAnswer(true)}
+                style={{
+                  flex: 1, padding: "12px 0", borderRadius: 10,
+                  border: "1.5px solid #111827", background: "transparent",
+                  color: "#111827", fontSize: 16, fontWeight: 600, cursor: "pointer",
+                }}
+              >
+                Oui
+              </button>
+              <button
+                onClick={() => handleModbusAnswer(false)}
+                style={{
+                  flex: 1, padding: "12px 0", borderRadius: 10,
+                  border: "none", background: "#111827",
+                  color: "#fff", fontSize: 16, fontWeight: 600, cursor: "pointer",
+                }}
+              >
+                Non
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

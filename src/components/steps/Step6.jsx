@@ -6,7 +6,7 @@ const LED_STATES = [
     label: "Éteint",
     ledClass: "led led-off",
     desc: "Aucune LED allumée",
-    action: "Pas de câble branché",
+    action: "Hors tension",
     actionClass: "error",
   },
   {
@@ -30,7 +30,7 @@ const LED_STATES = [
     label: "Serveurs non atteints",
     ledClass: "led led-blink-green-red",
     desc: "Verte + rouge alternance 3 s",
-    action: "Vérifiez internet",
+    action: "Contacter notre support",
     actionClass: "warn",
   },
   {
@@ -43,7 +43,7 @@ const LED_STATES = [
   },
 ];
 
-const ITEMS = ["LED Power verte — 1 clignotement toutes les 3 s"];
+const ITEMS = ["La LED est bien sur l'état nominal"];
 
 export default function Step6({ state, setState }) {
   const checked = state.etapesCochees?.step6 || Array(ITEMS.length).fill(false);
@@ -62,7 +62,7 @@ export default function Step6({ state, setState }) {
         <div className="notice notice-yellow">
           <span className="notice-icon">⏱️</span>
           <div className="notice-body">
-            <p className="notice-title">Démarrage jusqu'à 10 minutes</p>
+            <p className="notice-title">Démarrage et connexion internet jusqu'à 10 minutes</p>
           </div>
         </div>
       </div>
