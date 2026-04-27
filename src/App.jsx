@@ -65,7 +65,7 @@ function isStepComplete(stepIdx, state) {
     return c.length >= n && c.slice(0, n).every(Boolean);
   };
   switch (stepIdx) {
-    case IDX.COFFRET:     return !!state.coffretSelectionne;
+    case IDX.COFFRET:     return (state.coffretSelectionne || []).length > 0;
     case IDX.TYPE_INST:   return !!state.typeInstallation;
     case IDX.EQUIPEMENTS: return true;
     case IDX.FIXATION:    return allChecked("step1", 1);
@@ -84,8 +84,7 @@ function isStepComplete(stepIdx, state) {
 export default function App() {
   const [currentStep, setCurrentStep] = useState(0);
   const [appState, setAppState] = useState({
-    coffretSelectionne: null,
-    coffretNom: null,
+    coffretSelectionne: [],
     typeInstallation: null,
     sensorType: "ct",
     ceType: "electrique",
@@ -120,7 +119,7 @@ export default function App() {
 
   const navigate = (newStep) => {
     if (animating) return;
-    setDirection(newStep > currentStep ? 1 : -1);
+setDirection(newStep > currentStep ? 1 : -1);
     setAnimating(true);
     setTimeout(() => {
       setCurrentStep(newStep);
@@ -150,7 +149,7 @@ export default function App() {
   const StepComponent = STEPS[currentStep];
 
   const isLast = getNext(currentStep, appState) === currentStep;
-  const nextLabel = isLast ? "Terminer" : undefined;
+  const nextLabel = currentStep === IDX.COFFRET ? "Sélectionner" : isLast ? "Terminer" : undefined;
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
@@ -212,13 +211,14 @@ export default function App() {
         />
       </div>
 
-      {currentStep > IDX.COFFRET && currentStep < STEPS.length - 1 && (
+      {currentStep < STEPS.length - 1 && (
         <BottomNav
           onPrev={() => navigate(getPrev(currentStep, appState))}
           onNext={handleNext}
           canNext={canNext}
           isFirst={isFirst}
           nextLabel={nextLabel}
+          hideNext={currentStep === IDX.COFFRET && !canNext}
         />
       )}
 
