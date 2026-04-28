@@ -1,29 +1,45 @@
-// Étapes affichées dans la barre de progression (step index → label)
-// L'index 0 (coffret) n'a pas de barre — on commence à 1
 const STEP_LABELS = [
-  null,                    // 0  — coffret, pas de barre
-  "Type d'installation",   // 1
-  "Équipements",           // 2
-  "Schéma de principe",    // 3
-  "CT1 — Consommation",    // 4
-  "CT2 — Chauffe-eau",     // 5
-  "CT3 — Production",      // 6  optionnel
-  "Compteur Modbus RS485", // 7  optionnel
-  "Borne de recharge",     // 8  optionnel
-  "Connexion internet",    // 9
-  "Mise sous tension",     // 10
-  "Terminé",               // 11
+  null,                    // 0  — home, pas de barre
+  "Équipements",           // 1
+  "Coffret",               // 2
+  "Type d'installation",   // 3
+  "Compteurs",             // 4
+  "UPM — Compatibilité",   // 5  optionnel
+  "UPM — Raccordement",    // 6  optionnel
+  "UPM — Vérification",    // 7  optionnel
+  "UPG — Compatibilité",   // 8  optionnel
+  "UPG — Matériel",        // 9  optionnel
+  "UPG — Raccordement",    // 10 optionnel
+  "UPG — Vérification",    // 11 optionnel
+  "Schéma de principe",    // 12
+  "CT1 — Consommation",    // 13
+  "CT2 — Chauffe-eau",     // 14
+  "CT3 — Production",      // 15 optionnel
+  "Compteur Modbus RS485", // 16 optionnel
+  "Borne de recharge",     // 17 optionnel
+  "Connexion internet",    // 18
+  "Mise sous tension",     // 19
+  "Terminé",               // 20
 ];
 
-const OPTIONAL_STEPS = new Set([6, 7, 8]);
+const OPTIONAL_STEPS = new Set([5, 6, 7, 8, 9, 10, 11, 15, 16, 17]);
 
-// Calcule les étapes visibles selon les équipements sélectionnés
 function getVisible(appState) {
-  const eq = appState?.equipements || [];
+  const eq      = appState?.equipements || [];
+  const compteurs = appState?.compteursSupplementaires || [];
+  const hasUPM  = compteurs.includes("UPM");
+  const hasUPG  = compteurs.includes("UPG");
   return STEP_LABELS.map((_, i) => {
-    if (i === 6 && !eq.includes("CE"))    return false;
-    if (i === 7 && !appState?.hasModbus)  return false;
-    if (i === 8 && !eq.includes("BdR"))   return false;
+    if (i === 5  && !hasUPM)               return false;
+    if (i === 6  && !hasUPM)               return false;
+    if (i === 7  && !hasUPM)               return false;
+    if (i === 8  && !hasUPG)               return false;
+    if (i === 9  && !hasUPG)               return false;
+    if (i === 10 && !hasUPG)               return false;
+    if (i === 11 && !hasUPG)               return false;
+    if (i === 15 && !eq.includes("CE"))    return false;
+    if (i === 16 && !appState?.hasModbus)  return false;
+    if (i === 17 && !eq.includes("BdR"))   return false;
     return true;
   });
 }
@@ -33,7 +49,7 @@ export default function ProgressBar({ currentStep, appState }) {
 
   const visible   = getVisible(appState);
   const visibles  = visible.map((v, i) => v ? i : null).filter(i => i !== null && i > 0);
-  const position  = visibles.indexOf(currentStep); // 0-based parmi les visibles
+  const position  = visibles.indexOf(currentStep);
   const total     = visibles.length;
   const displayNum= position + 1;
   const percent   = total > 1 ? Math.round((position / (total - 1)) * 100) : 100;

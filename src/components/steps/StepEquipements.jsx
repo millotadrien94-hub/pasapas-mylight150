@@ -1,7 +1,7 @@
 import iconBdr from "../../assets/icon-bdr.svg";
 import iconWaterHeater from "../../assets/icon-water-heater.svg";
 
-const EQUIPEMENTS = [
+const EQUIPEMENTS_ALL = [
   {
     id: "CE",
     label: "Chauffe-eau",
@@ -11,8 +11,14 @@ const EQUIPEMENTS = [
   {
     id: "BdR",
     label: "Borne de recharge",
-    desc: "Véhicule électrique — monophasé",
+    desc: "Véhicule électrique",
     icon: iconBdr,
+  },
+  {
+    id: "PAC",
+    label: "Pompe à chaleur",
+    desc: "PAC air/air ou air/eau",
+    icon: null,
   },
   {
     id: "AUCUN",
@@ -24,10 +30,13 @@ const EQUIPEMENTS = [
 
 export default function StepEquipements({ state, setState }) {
   const selected = state.equipements || [];
-  const isTri = state.typeInstallation === "tri";
+  const coffret = state.coffretSelectionne;
+
+  // Robin Plus (X) → pas de PAC ; Robin Max (H) ou MG3 → PAC disponible
+  const hasPAC = coffret === "H" || coffret === "MG3" || !coffret;
+  const equipements = EQUIPEMENTS_ALL.filter(eq => eq.id !== "PAC" || hasPAC);
 
   const toggle = (id) => {
-    if (id === "BdR" && isTri) return;
     if (id === "AUCUN") {
       setState(prev => ({ ...prev, equipements: selected.includes("AUCUN") ? [] : ["AUCUN"] }));
       return;
@@ -51,14 +60,13 @@ export default function StepEquipements({ state, setState }) {
       <div className="step-page-section">
         <p className="list-header">Sélectionnez tout ce qui s'applique</p>
         <div className="list-group" style={{ margin: "0 16px" }}>
-          {EQUIPEMENTS.map(eq => {
-            const isDisabled = eq.id === "BdR" && isTri;
-            const isSelected = !isDisabled && selected.includes(eq.id);
+          {equipements.map(eq => {
+            const isSelected = selected.includes(eq.id);
             return (
               <div
                 key={eq.id}
                 className="list-row"
-                style={{ minHeight: 64, opacity: isDisabled ? 0.4 : 1, cursor: isDisabled ? "not-allowed" : "pointer" }}
+                style={{ minHeight: 64, cursor: "pointer" }}
                 onClick={() => toggle(eq.id)}
               >
                 <div style={{
@@ -85,7 +93,7 @@ export default function StepEquipements({ state, setState }) {
                 <div className="list-row-content">
                   <p className="list-row-title" style={{ fontWeight: 500 }}>{eq.label}</p>
                   {eq.desc && (
-                    <p className="list-row-subtitle">{isDisabled ? "Non compatible avec le triphasé" : eq.desc}</p>
+                    <p className="list-row-subtitle">{eq.desc}</p>
                   )}
                 </div>
                 <div className="list-row-trailing">

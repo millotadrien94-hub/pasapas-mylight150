@@ -27,6 +27,9 @@ export default function StepInstallationType({ state, setState }) {
       </div>
 
       <div className="step-page-section">
+        <p className="list-header" style={{ paddingBottom: 6 }}>
+          Vérifiez sur votre compteur Linky
+        </p>
         <div className="list-group" style={{ margin: "0 16px" }}>
           {OPTIONS.map(opt => (
             <div
