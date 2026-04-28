@@ -592,12 +592,12 @@ body {
 }
 
 .sel-card:hover {
-  background: var(--color-bg-subtle);
+  background: var(--color-secondary-50);
 }
 
 .sel-card.selected {
-  background: var(--color-bg-subtle);
-  border-color: var(--color-secondary);
+  background: var(--color-secondary-50);
+  border-color: var(--color-secondary-200);
   border-left: 3px solid var(--color-secondary);
 }
 

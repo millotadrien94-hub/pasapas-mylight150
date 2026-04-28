@@ -1,6 +1,7 @@
 import { useState } from "react";
 import coffretImg from "../../assets/coffret.png";
 import mg3Img from "../../assets/smart-master-mg3.jpg";
+import CheckMark from "../CheckMark";
 
 const COFFRETS = [
   {
@@ -168,14 +169,9 @@ function CoffretCard({ coffret, selected, recommended, onSelect }) {
             ))}
           </div>
         </div>
-        {selected && (
-          <div style={{
-            width: 26, height: 26, borderRadius: "50%",
-            background: "var(--accent)", color: "white",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 14, fontWeight: 700, flexShrink: 0,
-          }}>✓</div>
-        )}
+        <div className={`check-circle ${selected ? "checked" : ""}`}>
+          {selected && <CheckMark />}
+        </div>
     </div>
   );
 }
