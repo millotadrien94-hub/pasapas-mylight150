@@ -37,7 +37,7 @@ export default function Step1({ state, setState }) {
         onChange={(i, val) => {
           const next = [...checked]; next[i] = val; setChecked(next);
         }}
-        title="Recommandations"
+        title="Vérification"
       />
     </div>
   );

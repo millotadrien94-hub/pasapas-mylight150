@@ -2,13 +2,14 @@ import mc1d01rmImg from "../../assets/MC1D01RM.jpeg";
 import mc3d01rmImg from "../../assets/MC3D01RM.jpeg";
 import sdm120Img from "../../assets/SDM120.png";
 import mg3c01rmImg from "../../assets/MG3C01RM.png";
+import upmImg from "../../assets/UPM.jpg";
 
 const COMPTEURS_MONO = {
   traversants: [
     { id: "MC1D01RM", name: "MC1D01RM", desc: "Mesure un circuit supplémentaire", tag: "Monophasé", img: mc1d01rmImg },
   ],
   pinces: [
-    { id: "SDM120", name: "SDM120", desc: "Mesure un circuit supplémentaire", tag: "Monophasé", img: sdm120Img },
+    { id: "SDM120", name: "SDM120", desc: "Mesure un circuit supplémentaire", tag: "Monophasé", img: sdm120Img, imgFit: "contain" },
   ],
 };
 
@@ -22,8 +23,8 @@ const COMPTEURS_TRI = {
 };
 
 const MODULES = [
-  { id: "UPM", name: "Robin Link (UPM)",  desc: "Communication sans fil W-Modbus", tag: "Radio 868 MHz", img: null },
-  { id: "UPG", name: "Robin Heat (UPG H)", desc: "Pilotage PAC via SG-Ready",       tag: "SG-Ready",     img: null },
+  { id: "UPM", name: "Robin Link (UPM)",  desc: "Communication sans fil W-Modbus", tag: "Radio 868 MHz", img: upmImg },
+  { id: "UPG", name: "Robin Heat (UPG H)", desc: "Pilotage PAC via SG-Ready",       tag: "SG-Ready",     img: upmImg },
 ];
 
 export default function StepCompteurs({ state, setState }) {
@@ -53,30 +54,6 @@ export default function StepCompteurs({ state, setState }) {
         </p>
       </div>
 
-      <Section
-        title="Compteurs traversants"
-        desc="Le câble électrique passe à l'intérieur"
-        items={compteurs.traversants}
-        selected={selected}
-        onToggle={toggle}
-      />
-
-      <Section
-        title="Compteurs à pinces"
-        desc="Se clippe autour du câble existant"
-        items={compteurs.pinces}
-        selected={selected}
-        onToggle={toggle}
-      />
-
-      <Section
-        title="Modules complémentaires"
-        desc={null}
-        items={MODULES}
-        selected={selected}
-        onToggle={toggle}
-      />
-
       <div className="step-page-section">
         <div className="list-group" style={{ margin: "0 16px" }}>
           <div
@@ -103,6 +80,30 @@ export default function StepCompteurs({ state, setState }) {
           </div>
         </div>
       </div>
+
+      <Section
+        title="Compteurs traversants"
+        desc="Le câble électrique passe à l'intérieur"
+        items={compteurs.traversants}
+        selected={selected}
+        onToggle={toggle}
+      />
+
+      <Section
+        title="Compteurs à pinces"
+        desc="Se clippe autour du câble existant"
+        items={compteurs.pinces}
+        selected={selected}
+        onToggle={toggle}
+      />
+
+      <Section
+        title="Modules complémentaires"
+        desc={null}
+        items={MODULES}
+        selected={selected}
+        onToggle={toggle}
+      />
     </div>
   );
 }
@@ -133,7 +134,7 @@ function Section({ title, desc, items, selected, onToggle }) {
                 transition: "border-color 0.2s, background 0.2s",
               }}>
                 {item.img ? (
-                  <img src={item.img} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <img src={item.img} alt={item.name} style={{ width: "100%", height: "100%", objectFit: item.imgFit ?? "cover" }} />
                 ) : (
                   <span style={{ fontSize: 16, color: isSelected ? "white" : "var(--label-2)" }}>⋯</span>
                 )}

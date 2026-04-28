@@ -84,7 +84,7 @@ function getVisibleSteps(state) {
   const hasBdR   = eq.includes("BdR");
   const hasUPM   = compteurs.includes("UPM");
   const hasUPG   = compteurs.includes("UPG");
-  const hasModbus = !!state.hasModbus;
+  const hasModbus = (state.compteursSupplementaires || []).includes("SDM120");
   return STEPS.map((_, i) => {
     if (i === IDX.UPM_COMPAT   && !hasUPM)    return false;
     if (i === IDX.UPM_BRANCH   && !hasUPM)    return false;
@@ -152,12 +152,10 @@ export default function App() {
     connexionType: "modem",
     equipements: [],
     etapesCochees: {},
-    hasModbus: null,
   });
 
-  const [animating, setAnimating]             = useState(false);
-  const [direction, setDirection]             = useState(1);
-  const [showModbusModal, setShowModbusModal] = useState(false);
+  const [animating, setAnimating] = useState(false);
+  const [direction, setDirection] = useState(1);
 
   const canNext = isStepComplete(currentStep, appState);
   const isFirst = currentStep === 0;
@@ -214,10 +212,6 @@ export default function App() {
         return;
       }
     }
-    if (currentStep === IDX.CE) {
-      setShowModbusModal(true);
-      return;
-    }
     navigate(getNext(currentStep, appState));
   };
 
@@ -247,16 +241,6 @@ export default function App() {
       }
     }
     navigate(getPrev(currentStep, appState));
-  };
-
-  const handleModbusAnswer = (hasModbus) => {
-    setShowModbusModal(false);
-    const newState = { ...appState, hasModbus };
-    setAppState(newState);
-    const visible = getVisibleSteps(newState);
-    for (let i = IDX.CE + 1; i < STEPS.length; i++) {
-      if (visible[i]) { navigate(i); return; }
-    }
   };
 
   const StepComponent = STEPS[currentStep];
@@ -337,48 +321,6 @@ export default function App() {
         />
       )}
 
-      {/* Modale Modbus RS485 */}
-      {showModbusModal && (
-        <div style={{
-          position: "fixed", inset: 0, zIndex: 1000,
-          background: "rgba(0,0,0,0.6)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-        }}>
-          <div style={{
-            background: "#fff", borderRadius: 16, width: "calc(100% - 32px)", maxWidth: 618,
-            padding: "24px 20px 20px",
-            display: "flex", flexDirection: "column", gap: 16,
-            boxShadow: "0px 20px 25px -5px rgba(0,0,0,0.15)",
-          }}>
-            <div>
-              <p style={{ fontWeight: 700, fontSize: 18, color: "#111827", marginBottom: 8 }}>
-                Compteur Modbus RS485
-              </p>
-              <p style={{ fontSize: 15, color: "rgba(60,60,67,0.6)", lineHeight: 1.5 }}>
-                Est-ce que l'installation comporte un compteur Modbus RS485 ?
-              </p>
-            </div>
-            <div style={{ display: "flex", gap: 10 }}>
-              <button
-                onClick={() => handleModbusAnswer(true)}
-                style={{
-                  flex: 1, padding: "12px 0", borderRadius: 10,
-                  border: "1.5px solid #111827", background: "transparent",
-                  color: "#111827", fontSize: 16, fontWeight: 600, cursor: "pointer",
-                }}
-              >Oui</button>
-              <button
-                onClick={() => handleModbusAnswer(false)}
-                style={{
-                  flex: 1, padding: "12px 0", borderRadius: 10,
-                  border: "none", background: "#111827",
-                  color: "#fff", fontSize: 16, fontWeight: 600, cursor: "pointer",
-                }}
-              >Non</button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

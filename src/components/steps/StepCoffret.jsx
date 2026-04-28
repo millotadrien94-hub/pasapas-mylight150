@@ -139,9 +139,8 @@ function CoffretCard({ coffret, selected, recommended, onSelect }) {
   return (
     <div
       className={`sel-card ${selected ? "selected" : ""}`}
-      style={{ flexDirection: "column", alignItems: "stretch", gap: 0 }}
+      onClick={() => onSelect(coffret)}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 12 }} onClick={() => onSelect(coffret)}>
         <div className="sel-card-thumb">
           <img
             src={coffret.img}
@@ -176,19 +175,6 @@ function CoffretCard({ coffret, selected, recommended, onSelect }) {
             fontSize: 14, fontWeight: 700, flexShrink: 0,
           }}>✓</div>
         )}
-      </div>
-      <div style={{ paddingLeft: 64, paddingTop: 6 }}>
-        <button
-          onClick={e => e.stopPropagation()}
-          style={{
-            background: "none", border: "none",
-            color: "var(--accent)", fontSize: 13,
-            cursor: "pointer", padding: 0,
-          }}
-        >
-          En savoir plus
-        </button>
-      </div>
     </div>
   );
 }

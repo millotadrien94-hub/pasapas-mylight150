@@ -43,8 +43,8 @@ export default function StepInternet({ state, setState }) {
             <img src={current.schema} alt={current.label} style={{ width: "100%", borderRadius: 8 }} />
           </div>
 
-          {/* Accordéon légende */}
-          <div className="list-group" style={{ overflow: "hidden" }}>
+          {/* Accordéon légende — affiché uniquement pour Modem 3G/4G */}
+          {connexionType === "modem" && <div className="list-group" style={{ overflow: "hidden" }}>
             <button
               onClick={() => setLegendOpen(o => !o)}
               style={{
@@ -82,7 +82,7 @@ export default function StepInternet({ state, setState }) {
                 </ul>
               </div>
             )}
-          </div>
+          </div>}
         </div>
       </div>
     </div>

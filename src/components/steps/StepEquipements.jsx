@@ -1,5 +1,6 @@
 import iconBdr from "../../assets/icon-bdr.svg";
 import iconWaterHeater from "../../assets/icon-water-heater.svg";
+import iconPac from "../../assets/PAC.png";
 
 const EQUIPEMENTS_ALL = [
   {
@@ -18,7 +19,7 @@ const EQUIPEMENTS_ALL = [
     id: "PAC",
     label: "Pompe à chaleur",
     desc: "PAC air/air ou air/eau",
-    icon: null,
+    icon: iconPac,
   },
   {
     id: "AUCUN",

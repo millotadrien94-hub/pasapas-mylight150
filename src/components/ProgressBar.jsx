@@ -38,7 +38,7 @@ function getVisible(appState) {
     if (i === 10 && !hasUPG)               return false;
     if (i === 11 && !hasUPG)               return false;
     if (i === 15 && !eq.includes("CE"))    return false;
-    if (i === 16 && !appState?.hasModbus)  return false;
+    if (i === 16 && !(appState?.compteursSupplementaires || []).includes("SDM120")) return false;
     if (i === 17 && !eq.includes("BdR"))   return false;
     return true;
   });

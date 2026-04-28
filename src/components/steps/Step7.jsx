@@ -1,3 +1,5 @@
+const COFFRET_NAMES = { X: "Robin Plus", H: "Robin Max", MG3: "MG3 seule" };
+
 export default function Step7({ state }) {
   const modeInstallation = state.typeInstallation === "tri" ? "Triphasé" : "Monophasé";
   const sensorLabel = state.sensorType === "sdm" ? "SDM120" : "Pince CT";
@@ -20,7 +22,7 @@ export default function Step7({ state }) {
         <div className="summary-grid">
           <div className="summary-cell">
             <p className="summary-cell-label">Coffret</p>
-            <p className="summary-cell-value">Gamme {state.coffretSelectionne || "—"}</p>
+            <p className="summary-cell-value">{COFFRET_NAMES[state.coffretSelectionne] || "—"}</p>
           </div>
           <div className="summary-cell">
             <p className="summary-cell-label">Installation</p>
@@ -44,7 +46,7 @@ export default function Step7({ state }) {
           className="btn-ios btn-filled btn-full"
           onClick={() => window.open("https://pro.mylight150.com", "_blank")}
         >
-          Aller sur mylight150 Pro →
+          Revenir sur mylight150 Pro →
         </button>
       </div>
     </div>
