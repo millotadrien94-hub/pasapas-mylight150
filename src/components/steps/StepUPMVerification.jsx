@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CheckMark from "../CheckMark";
 
 const BANNER_ORANGE = {
   background: "var(--color-warning-light)",
@@ -32,7 +33,7 @@ function CheckRow({ checked, onToggle, label }) {
       </div>
       <div className="list-row-trailing">
         <div className={`check-circle ${checked ? "checked" : ""}`}>
-          <span className="check-circle-icon">✓</span>
+          {checked && <CheckMark />}
         </div>
       </div>
     </div>

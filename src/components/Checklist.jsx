@@ -1,3 +1,5 @@
+import CheckMark from "./CheckMark";
+
 export default function Checklist({ items, checked, onChange, title }) {
   return (
     <div className="step-page-section">
@@ -17,7 +19,7 @@ export default function Checklist({ items, checked, onChange, title }) {
               </div>
               <div className="list-row-trailing">
                 <div className={`check-circle ${done ? "checked" : ""}`}>
-                  <span className="check-circle-icon">✓</span>
+                  {done && <CheckMark />}
                 </div>
               </div>
             </div>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CheckMark from "../CheckMark";
 
 function StepperDots({ current, total }) {
   return (
@@ -51,7 +52,7 @@ function CheckRow({ checked, onToggle, label }) {
       </div>
       <div className="list-row-trailing">
         <div className={`check-circle ${checked ? "checked" : ""}`}>
-          <span className="check-circle-icon">✓</span>
+          {checked && <CheckMark />}
         </div>
       </div>
     </div>

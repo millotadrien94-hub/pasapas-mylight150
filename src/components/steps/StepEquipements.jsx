@@ -1,6 +1,7 @@
 import iconBdr from "../../assets/icon-bdr.svg";
 import iconWaterHeater from "../../assets/icon-water-heater.svg";
 import iconPac from "../../assets/PAC.png";
+import CheckMark from "../CheckMark";
 
 const EQUIPEMENTS_ALL = [
   {
@@ -72,7 +73,7 @@ export default function StepEquipements({ state, setState }) {
               >
                 <div style={{
                   width: 44, height: 44, borderRadius: 12,
-                  background: isSelected ? "var(--color-primary)" : "var(--color-bg-subtle)",
+                  background: isSelected ? "var(--color-secondary)" : "var(--color-bg-subtle)",
                   display: "flex", alignItems: "center", justifyContent: "center",
                   flexShrink: 0,
                   transition: "background 0.2s",
@@ -99,7 +100,7 @@ export default function StepEquipements({ state, setState }) {
                 </div>
                 <div className="list-row-trailing">
                   <div className={`check-circle ${isSelected ? "checked" : ""}`}>
-                    <span className="check-circle-icon">✓</span>
+                    {isSelected && <CheckMark />}
                   </div>
                 </div>
               </div>

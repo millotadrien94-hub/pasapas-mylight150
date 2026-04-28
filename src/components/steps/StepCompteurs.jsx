@@ -1,3 +1,4 @@
+import CheckMark from "../CheckMark";
 import mc1d01rmImg from "../../assets/MC1D01RM.jpeg";
 import mc3d01rmImg from "../../assets/MC3D01RM.jpeg";
 import sdm120Img from "../../assets/SDM120.png";
@@ -74,7 +75,7 @@ export default function StepCompteurs({ state, setState }) {
             </div>
             <div className="list-row-trailing">
               <div className={`check-circle ${aucunSelected ? "checked" : ""}`}>
-                <span className="check-circle-icon">✓</span>
+                {aucunSelected && <CheckMark />}
               </div>
             </div>
           </div>
@@ -146,7 +147,7 @@ function Section({ title, desc, items, selected, onToggle }) {
               <div className="list-row-trailing" style={{ gap: 6, display: "flex", alignItems: "center" }}>
                 <span className="tag-pill">{item.tag}</span>
                 <div className={`check-circle ${isSelected ? "checked" : ""}`}>
-                  <span className="check-circle-icon">✓</span>
+                  {isSelected && <CheckMark />}
                 </div>
               </div>
             </div>

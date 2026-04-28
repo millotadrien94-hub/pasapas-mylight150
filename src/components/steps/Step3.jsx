@@ -1,4 +1,5 @@
 import Checklist from "../Checklist";
+import CheckMark from "../CheckMark";
 import schemaElectrique from "../../assets/CE-electrique.png";
 import schemaThermoSec from "../../assets/CE-thermodynamic_contact sec.png";
 import schemaThermo230 from "../../assets/CE-thermodynamic_230V.png";
@@ -80,22 +81,26 @@ export default function Step3({ state, setState }) {
       <div className="step-page-section">
         <p className="list-header">Type</p>
         <div className="list-group" style={{ margin: "0 16px" }}>
-          {TYPES.map((t) => (
-            <div
-              key={t.id}
-              className="list-row"
-              onClick={() => setCeType(t.id)}
-            >
-              <div className="list-row-content">
-                <p className="list-row-title">{t.label}</p>
+          {TYPES.map((t) => {
+            const sel = ceType === t.id;
+            return (
+              <div
+                key={t.id}
+                className="list-row"
+                style={{ cursor: "pointer" }}
+                onClick={() => setCeType(t.id)}
+              >
+                <div className="list-row-content">
+                  <p className="list-row-title" style={{ fontWeight: 500 }}>{t.label}</p>
+                </div>
+                <div className="list-row-trailing">
+                  <div className={`check-circle ${sel ? "checked" : ""}`}>
+                    {sel && <CheckMark />}
+                  </div>
+                </div>
               </div>
-              <div className="list-row-trailing">
-                {ceType === t.id && (
-                  <span style={{ color: "var(--accent)", fontWeight: 700, fontSize: 17 }}>✓</span>
-                )}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 

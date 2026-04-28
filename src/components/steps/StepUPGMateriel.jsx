@@ -1,3 +1,5 @@
+import CheckMark from "../CheckMark";
+
 const MATERIEL = [
   { name: "Coffret Robin Heat (UPG H)",             desc: "Monophasé ou Triphasé" },
   { name: "Câble d'alimentation coffret",           desc: "Dimensionné sur le TGBT du client" },
@@ -15,7 +17,7 @@ function CheckRow({ checked, onToggle, label }) {
       </div>
       <div className="list-row-trailing">
         <div className={`check-circle ${checked ? "checked" : ""}`}>
-          <span className="check-circle-icon">✓</span>
+          {checked && <CheckMark />}
         </div>
       </div>
     </div>

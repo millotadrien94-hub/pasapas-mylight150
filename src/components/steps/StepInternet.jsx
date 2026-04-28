@@ -2,6 +2,7 @@ import { useState } from "react";
 import schemaModem from "../../assets/Connexion_modem.png";
 import schemaWifi from "../../assets/Connexion_Wifi.png";
 import schemaCPL from "../../assets/Connexion_CPL.png";
+import CheckMark from "../CheckMark";
 
 const TYPES = [
   { id: "modem",  label: "Modem 3G/4G",          schema: schemaModem },
@@ -22,17 +23,28 @@ export default function StepInternet({ state, setState }) {
         <h1 className="t-title2">Connecter la MG3 à internet</h1>
       </div>
 
-      <div style={{ padding: "0 16px" }}>
-        <div className="segmented">
-          {TYPES.map(t => (
-            <button
-              key={t.id}
-              className={`segmented-item ${connexionType === t.id ? "active" : ""}`}
-              onClick={() => setConnexionType(t.id)}
-            >
-              {t.label}
-            </button>
-          ))}
+      <div className="step-page-section">
+        <div className="list-group" style={{ margin: "0 16px" }}>
+          {TYPES.map(t => {
+            const sel = connexionType === t.id;
+            return (
+              <div
+                key={t.id}
+                className="list-row"
+                style={{ minHeight: 52, cursor: "pointer" }}
+                onClick={() => setConnexionType(t.id)}
+              >
+                <div className="list-row-content">
+                  <p className="list-row-title" style={{ fontWeight: 500 }}>{t.label}</p>
+                </div>
+                <div className="list-row-trailing">
+                  <div className={`check-circle ${sel ? "checked" : ""}`}>
+                    {sel && <CheckMark />}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 

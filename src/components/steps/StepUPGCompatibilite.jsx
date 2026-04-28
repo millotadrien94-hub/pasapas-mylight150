@@ -1,3 +1,5 @@
+import CheckMark from "../CheckMark";
+
 const BANNER_RED    = { background: "var(--color-error-light)", borderLeft: "3px solid var(--color-error)", borderRadius: 8, padding: "12px 14px", color: "var(--color-error-dark)" };
 const BANNER_ORANGE = { background: "var(--color-warning-light)", borderLeft: "3px solid var(--color-warning)", borderRadius: 8, padding: "12px 14px", color: "var(--color-warning-dark)" };
 const BANNER_GREEN  = { background: "var(--color-success-light)", borderLeft: "3px solid var(--color-success)", borderRadius: 8, padding: "12px 14px", color: "var(--color-success-dark)" };
@@ -10,7 +12,7 @@ function CheckRow({ checked, onToggle, label }) {
       </div>
       <div className="list-row-trailing">
         <div className={`check-circle ${checked ? "checked" : ""}`}>
-          <span className="check-circle-icon">✓</span>
+          {checked && <CheckMark />}
         </div>
       </div>
     </div>

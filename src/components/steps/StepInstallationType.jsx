@@ -1,3 +1,5 @@
+import CheckMark from "../CheckMark";
+
 const OPTIONS = [
   {
     id: "mono",
@@ -31,32 +33,36 @@ export default function StepInstallationType({ state, setState }) {
           Vérifiez sur votre compteur Linky
         </p>
         <div className="list-group" style={{ margin: "0 16px" }}>
-          {OPTIONS.map(opt => (
-            <div
-              key={opt.id}
-              className="list-row"
-              style={{ minHeight: 60 }}
-              onClick={() => setSelected(opt.id)}
-            >
-              <div style={{
-                width: 40, height: 40, borderRadius: 10,
-                background: selected === opt.id ? "var(--color-primary)" : "var(--color-bg-subtle)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 18, flexShrink: 0,
-                transition: "background 0.2s",
-              }}>
-                <span style={{ color: selected === opt.id ? "white" : "var(--color-text-secondary)" }}>{opt.icon}</span>
+          {OPTIONS.map(opt => {
+            const sel = selected === opt.id;
+            return (
+              <div
+                key={opt.id}
+                className="list-row"
+                style={{ minHeight: 60, cursor: "pointer" }}
+                onClick={() => setSelected(opt.id)}
+              >
+                <div style={{
+                  width: 40, height: 40, borderRadius: 10,
+                  background: sel ? "var(--color-secondary)" : "var(--color-bg-subtle)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 18, flexShrink: 0,
+                  transition: "background 0.2s",
+                }}>
+                  <span style={{ color: sel ? "white" : "var(--color-text-secondary)" }}>{opt.icon}</span>
+                </div>
+                <div className="list-row-content">
+                  <p className="list-row-title" style={{ fontWeight: 500 }}>{opt.label}</p>
+                  {opt.desc && <p className="list-row-subtitle">{opt.desc}</p>}
+                </div>
+                <div className="list-row-trailing">
+                  <div className={`check-circle ${sel ? "checked" : ""}`}>
+                    {sel && <CheckMark />}
+                  </div>
+                </div>
               </div>
-              <div className="list-row-content">
-                <p className="list-row-title" style={{ fontWeight: 500 }}>{opt.label}</p>
-              </div>
-              <div className="list-row-trailing">
-                {selected === opt.id && (
-                  <span style={{ color: "var(--color-primary)", fontWeight: 700, fontSize: 18 }}>✓</span>
-                )}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
