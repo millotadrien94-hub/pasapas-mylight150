@@ -50,7 +50,7 @@ export default function StepInternet({ state, setState }) {
               style={{
                 width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
                 padding: "12px 14px", background: "none", border: "none", cursor: "pointer",
-                fontSize: 15, fontWeight: 600, color: "#111827",
+                fontSize: 15, fontWeight: 600, color: "var(--color-text-primary)",
               }}
             >
               Légende
@@ -64,8 +64,8 @@ export default function StepInternet({ state, setState }) {
             </button>
 
             {legendOpen && (
-              <div style={{ padding: "0 14px 14px", borderTop: "0.5px solid rgba(60,60,67,0.12)" }}>
-                <p style={{ fontSize: 14, fontWeight: 600, color: "#111827", marginBottom: 8, marginTop: 12 }}>
+              <div style={{ padding: "0 14px 14px", borderTop: "1px solid var(--color-border)" }}>
+                <p style={{ fontSize: 14, fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 8, marginTop: 12 }}>
                   Alimentation 230V vers le bas
                 </p>
                 <ul style={{ margin: 0, paddingLeft: 18, display: "flex", flexDirection: "column", gap: 6 }}>
@@ -75,7 +75,7 @@ export default function StepInternet({ state, setState }) {
                     "Fil rouge → V+",
                     "Fil noir → V−",
                   ].map((item) => (
-                    <li key={item} style={{ fontSize: 14, color: "rgba(60,60,67,0.8)", lineHeight: 1.5 }}>
+                    <li key={item} style={{ fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.5 }}>
                       {item}
                     </li>
                   ))}

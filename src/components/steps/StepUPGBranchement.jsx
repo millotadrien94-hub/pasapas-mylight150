@@ -5,8 +5,8 @@ function StepperDots({ current, total }) {
     <div style={{ display: "flex", gap: 6, alignItems: "center", paddingTop: 10 }}>
       {Array.from({ length: total }, (_, i) => (
         <div key={i} style={{
-          width: i === current ? 20 : 8, height: 8, borderRadius: 4,
-          background: i <= current ? "#111827" : "#E5E7EB",
+          width: i === current ? 24 : 8, height: 8, borderRadius: 9999,
+          background: i === current ? "var(--color-secondary)" : (i < current ? "var(--color-secondary)" : "var(--color-border-strong)"),
           transition: "width 0.2s ease, background 0.2s ease",
         }} />
       ))}
@@ -17,17 +17,17 @@ function StepperDots({ current, total }) {
 function ConnGroup({ rows }) {
   return (
     <div style={{
-      background: "white", borderRadius: 12,
-      border: "1px solid #E5E7EB", overflow: "hidden", marginBottom: 16,
+      background: "var(--color-bg-card)", borderRadius: "var(--radius-lg)",
+      border: "1px solid var(--color-border)", overflow: "hidden", marginBottom: 16,
     }}>
       {rows.map(([from, to], i) => (
         <div key={i} style={{
           display: "flex", alignItems: "center", padding: "14px 16px",
-          borderBottom: i < rows.length - 1 ? "1px solid #F3F4F6" : "none",
+          borderBottom: i < rows.length - 1 ? "1px solid var(--color-border)" : "none",
         }}>
-          <span style={{ flex: 1, fontSize: 16, color: "#6B7280" }}>{from}</span>
-          <span style={{ fontSize: 18, color: "#9CA3AF", margin: "0 12px" }}>→</span>
-          <span style={{ flex: 1, fontSize: 18, fontWeight: 700, color: "#111827", textAlign: "right" }}>{to}</span>
+          <span style={{ flex: 1, fontSize: 14, color: "var(--color-text-secondary)" }}>{from}</span>
+          <span style={{ fontSize: 16, color: "var(--color-text-disabled)", margin: "0 12px" }}>→</span>
+          <span style={{ flex: 1, fontSize: 16, fontWeight: 700, color: "var(--color-text-primary)", textAlign: "right" }}>{to}</span>
         </div>
       ))}
     </div>
@@ -90,38 +90,29 @@ export default function StepUPGBranchement({ state, setState }) {
         <>
           <div className="step-page-section">
             <div style={{ padding: "0 16px" }}>
-              <p style={{ fontSize: 17, fontWeight: 600, color: "#111827", marginBottom: 16 }}>
+              <p style={{ fontSize: 17, fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 16 }}>
                 Alimentation et communication
               </p>
 
               <SubLabel label="Alimentation du coffret" />
               <div style={{
-                background: "#EFF6FF", borderLeft: "3px solid #3B82F6",
+                background: "var(--color-info-light)", borderLeft: "3px solid var(--color-info)",
                 borderRadius: 8, padding: "12px 14px", marginBottom: 20,
+                color: "var(--color-info-dark)",
               }}>
-                <p style={{ fontSize: 14, color: "#1D4ED8", lineHeight: 1.5 }}>
+                <p style={{ fontSize: 14, lineHeight: 1.5 }}>
                   ℹ️ Alimenter le coffret depuis le TGBT du client.
                   Protéger par un disjoncteur différentiel 30mA.
                 </p>
               </div>
 
               <SubLabel label="Liaison RS485" />
-              <div style={{
-                display: "flex", gap: 4, padding: 4,
-                background: "var(--fill-2)", borderRadius: 12, marginBottom: 16,
-              }}>
+              <div className="segmented">
                 {["Sans compteur RS485", "Avec compteur RS485"].map((label, i) => (
                   <button
                     key={i}
+                    className={`segmented-item${avecRS485 === (i === 1) ? " active" : ""}`}
                     onClick={() => setAvecRS485(i === 1)}
-                    style={{
-                      flex: 1, padding: "10px 8px", borderRadius: 9,
-                      border: "none", cursor: "pointer", fontSize: 14, fontWeight: 500,
-                      background: avecRS485 === (i === 1) ? "white" : "transparent",
-                      color: avecRS485 === (i === 1) ? "#111827" : "var(--label-2)",
-                      boxShadow: avecRS485 === (i === 1) ? "0 1px 4px rgba(0,0,0,0.1)" : "none",
-                      transition: "background 0.15s, box-shadow 0.15s",
-                    }}
                   >{label}</button>
                 ))}
               </div>
@@ -151,15 +142,16 @@ export default function StepUPGBranchement({ state, setState }) {
         <>
           <div className="step-page-section">
             <div style={{ padding: "0 16px" }}>
-              <p style={{ fontSize: 17, fontWeight: 600, color: "#111827", marginBottom: 16 }}>
+              <p style={{ fontSize: 17, fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 16 }}>
                 Signal SG-Ready vers la PAC
               </p>
 
               <div style={{
-                background: "#EFF6FF", borderLeft: "3px solid #3B82F6",
+                background: "var(--color-info-light)", borderLeft: "3px solid var(--color-info)",
                 borderRadius: 8, padding: "12px 14px", marginBottom: 20,
+                color: "var(--color-info-dark)",
               }}>
-                <p style={{ fontSize: 14, color: "#1D4ED8", lineHeight: 1.6, marginBottom: 8 }}>
+                <p style={{ fontSize: 14, lineHeight: 1.6, marginBottom: 8 }}>
                   ℹ️ Identifier l'entrée SG-Ready dans le schéma de compatibilité.
                   Raccorder la PAC sur SG1-Com1 et SG2-Com2 du Robin Heat.
                   Identifier et filer le câble selon la colonne "Mode de pilotage" dans l'outil de compatibilité
@@ -167,7 +159,7 @@ export default function StepUPGBranchement({ state, setState }) {
                 </p>
                 <button style={{
                   background: "none", border: "none", padding: 0,
-                  color: "#2563EB", fontSize: 14, fontWeight: 600,
+                  color: "var(--color-info)", fontSize: 14, fontWeight: 600,
                   cursor: "pointer", textDecoration: "underline",
                 }}>
                   Outil de compatibilité →
@@ -193,15 +185,16 @@ export default function StepUPGBranchement({ state, setState }) {
         <>
           <div className="step-page-section">
             <div style={{ padding: "0 16px" }}>
-              <p style={{ fontSize: 17, fontWeight: 600, color: "#111827", marginBottom: 12 }}>
+              <p style={{ fontSize: 17, fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 12 }}>
                 Pince mesurant la PAC
               </p>
 
               <div style={{
-                background: "#FFF7ED", borderLeft: "3px solid #F59E0B",
+                background: "var(--color-warning-light)", borderLeft: "3px solid var(--color-warning)",
                 borderRadius: 8, padding: "12px 14px", marginBottom: 20,
+                color: "var(--color-warning-dark)",
               }}>
-                <p style={{ fontSize: 14, color: "#92400E", lineHeight: 1.5 }}>
+                <p style={{ fontSize: 14, lineHeight: 1.5 }}>
                   ⚠️ La pince doit mesurer l'unité intérieure ET l'unité extérieure ensemble.
                 </p>
               </div>
@@ -215,11 +208,11 @@ export default function StepUPGBranchement({ state, setState }) {
                   ].map((txt, i) => (
                     <div key={i} style={{ display: "flex", gap: 10, marginBottom: 10 }}>
                       <div style={{
-                        width: 22, height: 22, borderRadius: "50%", background: "#111827",
+                        width: 22, height: 22, borderRadius: "50%", background: "var(--color-primary)",
                         color: "white", display: "flex", alignItems: "center", justifyContent: "center",
                         fontSize: 12, fontWeight: 700, flexShrink: 0, marginTop: 1,
                       }}>{i + 1}</div>
-                      <p style={{ fontSize: 14, color: "var(--label-1)", lineHeight: 1.5 }}>{txt}</p>
+                      <p style={{ fontSize: 14, color: "var(--color-text-primary)", lineHeight: 1.5 }}>{txt}</p>
                     </div>
                   ))}
                   <ConnGroup rows={[["Fil blanc", "Borne 1"], ["Fil noir", "Borne 2"]]} />
@@ -233,11 +226,11 @@ export default function StepUPGBranchement({ state, setState }) {
                   ].map((txt, i) => (
                     <div key={i} style={{ display: "flex", gap: 10, marginBottom: 10 }}>
                       <div style={{
-                        width: 22, height: 22, borderRadius: "50%", background: "#111827",
+                        width: 22, height: 22, borderRadius: "50%", background: "var(--color-primary)",
                         color: "white", display: "flex", alignItems: "center", justifyContent: "center",
                         fontSize: 12, fontWeight: 700, flexShrink: 0, marginTop: 1,
                       }}>{i + 1}</div>
-                      <p style={{ fontSize: 14, color: "var(--label-1)", lineHeight: 1.5 }}>{txt}</p>
+                      <p style={{ fontSize: 14, color: "var(--color-text-primary)", lineHeight: 1.5 }}>{txt}</p>
                     </div>
                   ))}
                   <ConnGroup rows={[
@@ -249,10 +242,11 @@ export default function StepUPGBranchement({ state, setState }) {
               )}
 
               <div style={{
-                background: "#FEF2F2", borderLeft: "3px solid #EF4444",
+                background: "var(--color-error-light)", borderLeft: "3px solid var(--color-error)",
                 borderRadius: 8, padding: "12px 14px",
+                color: "var(--color-error-dark)",
               }}>
-                <p style={{ fontSize: 14, color: "#991B1B", lineHeight: 1.5 }}>
+                <p style={{ fontSize: 14, lineHeight: 1.5 }}>
                   🔴 <strong>Attention</strong> — Ce compteur ne doit mesurer que la PAC.
                   Aucune autre charge sur ce circuit de mesure.
                 </p>

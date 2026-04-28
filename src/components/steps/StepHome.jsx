@@ -35,7 +35,7 @@ export default function StepHome({ setState, onNext, onAjout }) {
         >
           <div style={{
             width: 52, height: 52, borderRadius: 14,
-            background: "#111827",
+            background: "var(--color-primary)",
             display: "flex", alignItems: "center", justifyContent: "center",
             flexShrink: 0,
           }}>
@@ -74,9 +74,9 @@ export default function StepHome({ setState, onNext, onAjout }) {
                 flexShrink: 0,
                 padding: "10px 18px",
                 borderRadius: 99,
-                border: "1.5px solid var(--separator)",
-                background: "var(--bg-secondary)",
-                color: "#111827",
+                border: "1px solid var(--color-border)",
+                background: "var(--color-bg-card)",
+                color: "var(--color-text-primary)",
                 fontSize: 15,
                 fontWeight: 500,
                 cursor: "pointer",

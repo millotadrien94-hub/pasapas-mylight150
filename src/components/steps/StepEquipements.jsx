@@ -72,7 +72,7 @@ export default function StepEquipements({ state, setState }) {
               >
                 <div style={{
                   width: 44, height: 44, borderRadius: 12,
-                  background: isSelected ? "#111827" : "var(--fill-3)",
+                  background: isSelected ? "var(--color-primary)" : "var(--color-bg-subtle)",
                   display: "flex", alignItems: "center", justifyContent: "center",
                   flexShrink: 0,
                   transition: "background 0.2s",

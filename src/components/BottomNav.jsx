@@ -18,22 +18,51 @@ export default function BottomNav({ onPrev, onNext, canNext, isFirst, nextLabel,
   }, [hideNext]);
 
   return (
-    <div className="bottom-bar">
+    <div style={{
+      background: '#FFFFFF',
+      borderTop: '1px solid var(--color-border)',
+      padding: 16,
+      display: 'flex',
+      gap: 10,
+      flexShrink: 0,
+    }}>
       {!isFirst && (
-        <button className="btn-ios btn-gray" onClick={onPrev} style={{ flex: 1 }}>
+        <button
+          onClick={onPrev}
+          style={{
+            height: 48,
+            background: 'transparent',
+            color: 'var(--color-text-primary)',
+            border: '1px solid var(--color-border-strong)',
+            borderRadius: 'var(--radius-md)',
+            fontSize: 16,
+            fontWeight: 500,
+            padding: '0 20px',
+            cursor: 'pointer',
+            fontFamily: 'var(--font-family)',
+          }}
+        >
           ← Retour
         </button>
       )}
       {!hideNext && (
         <button
-          className={`btn-ios btn-filled ${canNext && interactive ? "pulse" : ""}`}
           onClick={onNext}
           disabled={!canNext || !interactive}
           style={{
-            flex: isFirst ? 1 : 1.6,
+            height: 48,
+            flex: 1,
+            background: canNext ? 'var(--color-primary)' : 'var(--color-border)',
+            color: canNext ? '#FFFFFF' : 'var(--color-text-disabled)',
+            border: 'none',
+            borderRadius: 'var(--radius-md)',
+            fontSize: 16,
+            fontWeight: 600,
+            fontFamily: 'var(--font-family)',
+            cursor: canNext ? 'pointer' : 'not-allowed',
+            transition: 'background 0.15s ease',
             opacity: interactive ? 1 : 0,
             transform: interactive ? 'none' : 'translateY(6px)',
-            transition: 'opacity 0.25s ease, transform 0.25s ease',
           }}
         >
           {nextLabel || "Continuer"}

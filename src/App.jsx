@@ -255,16 +255,18 @@ export default function App() {
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       {/* Header */}
       <div style={{
-        background: "rgba(242,242,247,0.92)",
-        backdropFilter: "saturate(180%) blur(20px)",
-        WebkitBackdropFilter: "saturate(180%) blur(20px)",
-        borderBottom: "0.5px solid rgba(60,60,67,0.18)",
-        padding: "14px 20px 12px",
-        display: "flex", alignItems: "center", flexShrink: 0, gap: 10,
+        background: '#FFFFFF',
+        borderBottom: '1px solid var(--color-border)',
+        height: 56,
+        padding: '0 16px',
+        display: 'flex',
+        alignItems: 'center',
+        flexShrink: 0,
+        gap: 10,
       }}>
         <div style={{
           width: 34, height: 34, borderRadius: 8,
-          background: "#111827", display: "flex",
+          background: "var(--color-primary)", display: "flex",
           alignItems: "center", justifyContent: "center", flexShrink: 0,
         }}>
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
@@ -282,7 +284,7 @@ export default function App() {
           </svg>
         </div>
         <div>
-          <p style={{ fontSize: 15, fontWeight: 700, letterSpacing: "-0.24px", color: "#111827", lineHeight: 1 }}>
+          <p style={{ fontSize: 15, fontWeight: 700, color: "var(--color-text-primary)", lineHeight: 1 }}>
             mylight150
           </p>
           <p style={{ fontSize: 11, color: "var(--label-2)", marginTop: 2 }}>

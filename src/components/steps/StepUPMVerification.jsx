@@ -1,24 +1,27 @@
 import { useState } from "react";
 
 const BANNER_ORANGE = {
-  background: "#FFF7ED",
-  borderLeft: "3px solid #F59E0B",
+  background: "var(--color-warning-light)",
+  borderLeft: "3px solid var(--color-warning)",
   borderRadius: 8,
   padding: "12px 14px",
+  color: "var(--color-warning-dark)",
 };
 
 const BANNER_BLUE = {
-  background: "#EFF6FF",
-  borderLeft: "3px solid #3B82F6",
+  background: "var(--color-info-light)",
+  borderLeft: "3px solid var(--color-info)",
   borderRadius: 8,
   padding: "12px 14px",
+  color: "var(--color-info-dark)",
 };
 
 const BANNER_GREEN = {
-  background: "#F0FDF4",
-  borderLeft: "3px solid #22C55E",
+  background: "var(--color-success-light)",
+  borderLeft: "3px solid var(--color-success)",
   borderRadius: 8,
   padding: "12px 14px",
+  color: "var(--color-success-dark)",
 };
 
 function CheckRow({ checked, onToggle, label }) {
@@ -81,19 +84,20 @@ export default function StepUPMVerification({ state, setState }) {
             onClick={() => setTxdOpen(o => !o)}
             style={{
               width: "100%", textAlign: "left",
-              background: "#FFF7ED", border: "none", borderRadius: 8,
+              background: "var(--color-warning-light)", border: "none", borderRadius: 8,
               padding: "10px 14px", cursor: "pointer",
               display: "flex", justifyContent: "space-between", alignItems: "center",
+              borderLeft: "3px solid var(--color-warning)",
             }}
           >
-            <span style={{ fontSize: 14, fontWeight: 600, color: "#92400E" }}>
+            <span style={{ fontSize: 14, fontWeight: 600, color: "var(--color-warning-dark)" }}>
               ⚠️ TXD/RXD ne clignotent pas ?
             </span>
-            <span style={{ color: "#92400E", fontSize: 16 }}>{txdOpen ? "▲" : "▼"}</span>
+            <span style={{ color: "var(--color-warning-dark)", fontSize: 16 }}>{txdOpen ? "▲" : "▼"}</span>
           </button>
           {txdOpen && (
             <div style={{ ...BANNER_ORANGE, borderRadius: "0 0 8px 8px", marginTop: -4 }}>
-              <p style={{ fontSize: 14, color: "#92400E", lineHeight: 1.5 }}>
+              <p style={{ fontSize: 14, lineHeight: 1.5 }}>
                 Vérifiez le positionnement des antennes : elles doivent se voir sans aucun obstacle.
                 Ajustez jusqu'à obtenir le clignotement rapide.
               </p>
@@ -133,7 +137,7 @@ export default function StepUPMVerification({ state, setState }) {
         <p className="list-header" style={{ padding: "0 16px 8px" }}>C — Déclarer dans mylight150 Pro</p>
         <div style={{ padding: "0 16px", display: "flex", flexDirection: "column", gap: 10 }}>
           <div style={BANNER_BLUE}>
-            <p style={{ fontSize: 14, color: "#1D4ED8", lineHeight: 1.5 }}>
+            <p style={{ fontSize: 14, lineHeight: 1.5 }}>
               ℹ️ <strong>Étape indispensable</strong> — le coffret ne fonctionnera pas sans cette déclaration.
             </p>
           </div>
@@ -154,7 +158,7 @@ export default function StepUPMVerification({ state, setState }) {
           ].map(step => (
             <div key={step.n} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
               <div style={{
-                width: 28, height: 28, borderRadius: "50%", background: "#111827",
+                width: 28, height: 28, borderRadius: "50%", background: "var(--color-primary)",
                 color: "white", display: "flex", alignItems: "center", justifyContent: "center",
                 fontSize: 13, fontWeight: 700, flexShrink: 0, marginTop: 1,
               }}>{step.n}</div>
@@ -166,7 +170,7 @@ export default function StepUPMVerification({ state, setState }) {
           ))}
 
           <div style={BANNER_ORANGE}>
-            <p style={{ fontSize: 14, color: "#92400E", lineHeight: 1.5 }}>
+            <p style={{ fontSize: 14, lineHeight: 1.5 }}>
               ⚠️ <strong>Valeurs incohérentes (mélange +/−) ?</strong><br />
               Inversez la position des pinces dont la polarité est erronée.
               Toutes les phases doivent afficher des valeurs négatives sur le compteur.
@@ -179,7 +183,7 @@ export default function StepUPMVerification({ state, setState }) {
       <div className="step-page-section">
         <div style={{ padding: "0 16px" }}>
           <div style={BANNER_GREEN}>
-            <p style={{ fontSize: 14, color: "#166534", fontWeight: 600, lineHeight: 1.5 }}>
+            <p style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.5 }}>
               ✅ Installation terminée — Le coffret Robin Link (UPM) est opérationnel et communique avec la MG3.
             </p>
           </div>

@@ -1,15 +1,17 @@
 const BANNER_ORANGE = {
-  background: "#FFF7ED",
-  borderLeft: "3px solid #F59E0B",
+  background: "var(--color-warning-light)",
+  borderLeft: "3px solid var(--color-warning)",
   borderRadius: 8,
   padding: "12px 14px",
+  color: "var(--color-warning-dark)",
 };
 
 const BANNER_GREEN = {
-  background: "#F0FDF4",
-  borderLeft: "3px solid #22C55E",
+  background: "var(--color-success-light)",
+  borderLeft: "3px solid var(--color-success)",
   borderRadius: 8,
   padding: "12px 14px",
+  color: "var(--color-success-dark)",
 };
 
 export default function StepUPMCompatibilite({ state, setState }) {
@@ -33,7 +35,7 @@ export default function StepUPMCompatibilite({ state, setState }) {
       <div className="step-page-section">
         <div style={{ padding: "0 16px" }}>
           <div style={BANNER_ORANGE}>
-            <p style={{ fontSize: 14, color: "#92400E", lineHeight: 1.5 }}>
+            <p style={{ fontSize: 14, lineHeight: 1.5 }}>
               ⚠️ <strong>Un seul coffret Robin Link (UPM) est autorisé par installation.</strong>{" "}
               Il n'est pas possible d'en installer plusieurs sur un même site.
             </p>
@@ -46,12 +48,12 @@ export default function StepUPMCompatibilite({ state, setState }) {
         <div style={{ padding: "0 16px" }}>
           <div style={BANNER_GREEN}>
             {isTri ? (
-              <p style={{ fontSize: 14, color: "#166534", lineHeight: 1.5 }}>
+              <p style={{ fontSize: 14, lineHeight: 1.5 }}>
                 Compteur MG3C01RM + 3 pinces ampèremétriques inclus.
                 Aucun compteur RS485 supplémentaire requis.
               </p>
             ) : (
-              <p style={{ fontSize: 14, color: "#166534", lineHeight: 1.5 }}>
+              <p style={{ fontSize: 14, lineHeight: 1.5 }}>
                 Compteur SDM120CT + 1 pince ampèremétrique inclus.
                 Aucun compteur RS485 supplémentaire requis.
               </p>

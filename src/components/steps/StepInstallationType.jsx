@@ -40,19 +40,19 @@ export default function StepInstallationType({ state, setState }) {
             >
               <div style={{
                 width: 40, height: 40, borderRadius: 10,
-                background: selected === opt.id ? "#111827" : "var(--fill-3)",
+                background: selected === opt.id ? "var(--color-primary)" : "var(--color-bg-subtle)",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 fontSize: 18, flexShrink: 0,
                 transition: "background 0.2s",
               }}>
-                <span style={{ color: selected === opt.id ? "white" : "var(--label-2)" }}>{opt.icon}</span>
+                <span style={{ color: selected === opt.id ? "white" : "var(--color-text-secondary)" }}>{opt.icon}</span>
               </div>
               <div className="list-row-content">
                 <p className="list-row-title" style={{ fontWeight: 500 }}>{opt.label}</p>
               </div>
               <div className="list-row-trailing">
                 {selected === opt.id && (
-                  <span style={{ color: "#111827", fontWeight: 700, fontSize: 18 }}>✓</span>
+                  <span style={{ color: "var(--color-primary)", fontWeight: 700, fontSize: 18 }}>✓</span>
                 )}
               </div>
             </div>

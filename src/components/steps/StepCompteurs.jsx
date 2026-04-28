@@ -63,7 +63,7 @@ export default function StepCompteurs({ state, setState }) {
           >
             <div style={{
               width: 44, height: 44, borderRadius: 12,
-              background: aucunSelected ? "#111827" : "var(--fill-3)",
+              background: aucunSelected ? "var(--color-secondary)" : "var(--color-bg-subtle)",
               display: "flex", alignItems: "center", justifyContent: "center",
               flexShrink: 0, transition: "background 0.2s",
             }}>
@@ -128,8 +128,8 @@ function Section({ title, desc, items, selected, onToggle }) {
               <div style={{
                 width: 44, height: 44, borderRadius: 12,
                 overflow: "hidden", flexShrink: 0,
-                border: isSelected ? "2px solid #111827" : "2px solid var(--fill-3)",
-                background: item.img ? "transparent" : (isSelected ? "#111827" : "var(--fill-3)"),
+                border: isSelected ? "2px solid var(--color-secondary)" : "2px solid var(--color-border)",
+                background: item.img ? "transparent" : (isSelected ? "var(--color-secondary)" : "var(--color-bg-subtle)"),
                 display: "flex", alignItems: "center", justifyContent: "center",
                 transition: "border-color 0.2s, background 0.2s",
               }}>

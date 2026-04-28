@@ -7,10 +7,10 @@ function StepperDots({ current, total }) {
     <div style={{ display: "flex", gap: 6, alignItems: "center", paddingTop: 10 }}>
       {Array.from({ length: total }, (_, i) => (
         <div key={i} style={{
-          width: i === current ? 20 : 8,
+          width: i === current ? 24 : 8,
           height: 8,
-          borderRadius: 4,
-          background: i <= current ? "#111827" : "#E5E7EB",
+          borderRadius: 9999,
+          background: i === current ? "var(--color-secondary)" : (i < current ? "var(--color-secondary)" : "var(--color-border-strong)"),
           transition: "width 0.2s ease, background 0.2s ease",
         }} />
       ))}
@@ -21,9 +21,9 @@ function StepperDots({ current, total }) {
 function ConnGroup({ rows }) {
   return (
     <div style={{
-      background: "white",
-      borderRadius: 12,
-      border: "1px solid #E5E7EB",
+      background: "var(--color-bg-card)",
+      borderRadius: "var(--radius-lg)",
+      border: "1px solid var(--color-border)",
       overflow: "hidden",
       marginBottom: 16,
     }}>
@@ -32,12 +32,11 @@ function ConnGroup({ rows }) {
           display: "flex",
           alignItems: "center",
           padding: "14px 16px",
-          background: "white",
-          borderBottom: i < rows.length - 1 ? "1px solid #F3F4F6" : "none",
+          borderBottom: i < rows.length - 1 ? "1px solid var(--color-border)" : "none",
         }}>
-          <span style={{ flex: 1, fontSize: 16, color: "#6B7280" }}>{from}</span>
-          <span style={{ fontSize: 18, color: "#9CA3AF", margin: "0 12px" }}>→</span>
-          <span style={{ flex: 1, fontSize: 18, fontWeight: 700, color: "#111827", textAlign: "right" }}>{to}</span>
+          <span style={{ flex: 1, fontSize: 14, color: "var(--color-text-secondary)" }}>{from}</span>
+          <span style={{ fontSize: 16, color: "var(--color-text-disabled)", margin: "0 12px" }}>→</span>
+          <span style={{ flex: 1, fontSize: 16, fontWeight: 700, color: "var(--color-text-primary)", textAlign: "right" }}>{to}</span>
         </div>
       ))}
     </div>
@@ -108,7 +107,7 @@ export default function StepUPMBranchement({ state, setState }) {
         <>
           <div className="step-page-section">
             <div style={{ padding: "0 16px" }}>
-              <p style={{ fontSize: 17, fontWeight: 600, color: "#111827", marginBottom: 4 }}>
+              <p style={{ fontSize: 17, fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 4 }}>
                 Câblage du transformateur
               </p>
               <p style={{ fontSize: 15, color: "var(--label-2)", marginBottom: 20 }}>
@@ -146,28 +145,16 @@ export default function StepUPMBranchement({ state, setState }) {
         <>
           <div className="step-page-section">
             <div style={{ padding: "0 16px" }}>
-              <p style={{ fontSize: 17, fontWeight: 600, color: "#111827", marginBottom: 16 }}>
+              <p style={{ fontSize: 17, fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 16 }}>
                 Liaison RS485
               </p>
 
-              <div style={{
-                display: "flex", gap: 4, padding: 4,
-                background: "var(--fill-2)", borderRadius: 12,
-                marginBottom: 20,
-              }}>
+              <div className="segmented">
                 {["Sans compteur RS485", "Avec compteur RS485"].map((label, i) => (
                   <button
                     key={i}
+                    className={`segmented-item${avecRS485 === (i === 1) ? " active" : ""}`}
                     onClick={() => setAvecRS485(i === 1)}
-                    style={{
-                      flex: 1, padding: "10px 8px", borderRadius: 9,
-                      border: "none", cursor: "pointer",
-                      fontSize: 14, fontWeight: 500,
-                      background: avecRS485 === (i === 1) ? "white" : "transparent",
-                      color: avecRS485 === (i === 1) ? "#111827" : "var(--label-2)",
-                      boxShadow: avecRS485 === (i === 1) ? "0 1px 4px rgba(0,0,0,0.1)" : "none",
-                      transition: "background 0.15s, box-shadow 0.15s",
-                    }}
                   >{label}</button>
                 ))}
               </div>
@@ -202,15 +189,16 @@ export default function StepUPMBranchement({ state, setState }) {
         <>
           <div className="step-page-section">
             <div style={{ padding: "0 16px" }}>
-              <p style={{ fontSize: 17, fontWeight: 600, color: "#111827", marginBottom: 12 }}>
+              <p style={{ fontSize: 17, fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 12 }}>
                 Pinces et antennes
               </p>
 
               <div style={{
-                background: "#FFF7ED", borderLeft: "3px solid #F59E0B",
+                background: "var(--color-warning-light)", borderLeft: "3px solid var(--color-warning)",
                 borderRadius: 8, padding: "12px 14px", marginBottom: 20,
+                color: "var(--color-warning-dark)",
               }}>
-                <p style={{ fontSize: 14, color: "#92400E", lineHeight: 1.5 }}>
+                <p style={{ fontSize: 14, lineHeight: 1.5 }}>
                   ⚠️ La flèche sur chaque pince doit pointer vers la source d'énergie.
                 </p>
               </div>

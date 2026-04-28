@@ -1,6 +1,6 @@
-const BANNER_RED    = { background: "#FEF2F2", borderLeft: "3px solid #EF4444", borderRadius: 8, padding: "12px 14px" };
-const BANNER_ORANGE = { background: "#FFF7ED", borderLeft: "3px solid #F59E0B", borderRadius: 8, padding: "12px 14px" };
-const BANNER_GREEN  = { background: "#F0FDF4", borderLeft: "3px solid #22C55E", borderRadius: 8, padding: "12px 14px" };
+const BANNER_RED    = { background: "var(--color-error-light)", borderLeft: "3px solid var(--color-error)", borderRadius: 8, padding: "12px 14px", color: "var(--color-error-dark)" };
+const BANNER_ORANGE = { background: "var(--color-warning-light)", borderLeft: "3px solid var(--color-warning)", borderRadius: 8, padding: "12px 14px", color: "var(--color-warning-dark)" };
+const BANNER_GREEN  = { background: "var(--color-success-light)", borderLeft: "3px solid var(--color-success)", borderRadius: 8, padding: "12px 14px", color: "var(--color-success-dark)" };
 
 function CheckRow({ checked, onToggle, label }) {
   return (
@@ -38,22 +38,22 @@ export default function StepUPGCompatibilite({ state, setState }) {
       <div className="step-page-section">
         <div style={{ padding: "0 16px", display: "flex", flexDirection: "column", gap: 12 }}>
           <div style={BANNER_RED}>
-            <p style={{ fontSize: 14, color: "#991B1B", lineHeight: 1.5 }}>
+            <p style={{ fontSize: 14, lineHeight: 1.5 }}>
               🔴 <strong>Rappel</strong> — Le Robin Heat (UPG H) s'ajoute à une installation mylight150 existante disposant déjà d'une MG3.
             </p>
           </div>
 
           <div style={BANNER_ORANGE}>
-            <p style={{ fontWeight: 600, fontSize: 14, color: "#92400E", marginBottom: 6 }}>
+            <p style={{ fontWeight: 600, fontSize: 14, marginBottom: 6 }}>
               ⚠️ Compatibilité PAC obligatoire
             </p>
-            <p style={{ fontSize: 14, color: "#92400E", lineHeight: 1.5, marginBottom: 10 }}>
+            <p style={{ fontSize: 14, lineHeight: 1.5, marginBottom: 10 }}>
               La PAC doit être équipée d'une entrée SG-Ready ou équivalent (Délestage, HC/HP...).
               Vérifiez via l'outil de compatibilité mylight150 avant toute installation.
             </p>
             <button style={{
               background: "none", border: "none", padding: 0,
-              color: "#D97706", fontSize: 14, fontWeight: 600,
+              color: "var(--color-warning-dark)", fontSize: 14, fontWeight: 600,
               cursor: "pointer", textDecoration: "underline",
             }}>
               Vérifier la compatibilité →
@@ -67,11 +67,11 @@ export default function StepUPGCompatibilite({ state, setState }) {
         <div style={{ padding: "0 16px" }}>
           <div style={BANNER_GREEN}>
             {isTri ? (
-              <p style={{ fontSize: 14, color: "#166534", lineHeight: 1.5 }}>
+              <p style={{ fontSize: 14, lineHeight: 1.5 }}>
                 Contient les relais SG-Ready + compteur MG3C01RM avec 3 pinces ampèremétriques inclus.
               </p>
             ) : (
-              <p style={{ fontSize: 14, color: "#166534", lineHeight: 1.5 }}>
+              <p style={{ fontSize: 14, lineHeight: 1.5 }}>
                 Contient les relais SG-Ready + compteur SDM120CT avec 1 pince ampèremétrique inclus.
               </p>
             )}

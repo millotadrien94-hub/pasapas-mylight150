@@ -71,12 +71,12 @@ export default function Step2({ state, setState }) {
           >
             {/* Header */}
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <p style={{ flex: 1, fontWeight: 500, fontSize: 18, lineHeight: "28px", color: "#111827" }}>
+              <p style={{ flex: 1, fontWeight: 500, fontSize: 18, lineHeight: "28px", color: "var(--color-text-primary)" }}>
                 Exemple de double départ
               </p>
               <button
                 onClick={() => setShowDepart(false)}
-                style={{ background: "none", border: "none", cursor: "pointer", padding: "4px", display: "flex", alignItems: "center", color: "#111827" }}
+                style={{ background: "none", border: "none", cursor: "pointer", padding: "4px", display: "flex", alignItems: "center", color: "var(--color-text-primary)" }}
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   <line x1="18" y1="6" x2="6" y2="18" />
@@ -110,7 +110,7 @@ export default function Step2({ state, setState }) {
               <button
                 onClick={() => setShowDepart(false)}
                 style={{
-                  background: "#111827", color: "#fff", border: "none", cursor: "pointer",
+                  background: "var(--color-primary)", color: "#fff", border: "none", cursor: "pointer",
                   padding: "10px 16px", borderRadius: 6, fontSize: 14, fontWeight: 500, lineHeight: "20px",
                   boxShadow: "0px 1px 2px rgba(0,0,0,0.05)",
                 }}

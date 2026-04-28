@@ -103,7 +103,7 @@ export default function StepCoffret({ state, setState }) {
             onClick={e => e.stopPropagation()}
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <p style={{ fontWeight: 700, fontSize: 18, color: "#111827" }}>
+              <p style={{ fontWeight: 700, fontSize: 18, color: "var(--color-text-primary)" }}>
                 Identifier mon coffret
               </p>
               <button
@@ -156,8 +156,9 @@ function CoffretCard({ coffret, selected, recommended, onSelect }) {
                 display: "inline-block",
                 padding: "2px 8px",
                 borderRadius: 99,
-                background: "#dcfce7",
-                color: "#16a34a",
+                background: "var(--color-secondary-100)",
+                color: "var(--color-secondary-700)",
+                border: "1px solid var(--color-secondary-300)",
                 fontSize: 12,
                 fontWeight: 600,
               }}>Recommandé</span>

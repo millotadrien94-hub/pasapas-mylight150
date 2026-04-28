@@ -5,8 +5,8 @@ function StepperDots({ current, total }) {
     <div style={{ display: "flex", gap: 6, alignItems: "center", paddingTop: 10 }}>
       {Array.from({ length: total }, (_, i) => (
         <div key={i} style={{
-          width: i === current ? 20 : 8, height: 8, borderRadius: 4,
-          background: i <= current ? "#111827" : "#E5E7EB",
+          width: i === current ? 24 : 8, height: 8, borderRadius: 9999,
+          background: i === current ? "var(--color-secondary)" : (i < current ? "var(--color-secondary)" : "var(--color-border-strong)"),
           transition: "width 0.2s ease, background 0.2s ease",
         }} />
       ))}
@@ -138,10 +138,11 @@ export default function StepUPGVerification({ state, setState }) {
           <div className="step-page-section">
             <div style={{ padding: "0 16px", display: "flex", flexDirection: "column", gap: 12 }}>
               <div style={{
-                background: "#EFF6FF", borderLeft: "3px solid #3B82F6",
+                background: "var(--color-info-light)", borderLeft: "3px solid var(--color-info)",
                 borderRadius: 8, padding: "12px 14px",
+                color: "var(--color-info-dark)",
               }}>
-                <p style={{ fontSize: 14, color: "#1D4ED8", lineHeight: 1.5 }}>
+                <p style={{ fontSize: 14, lineHeight: 1.5 }}>
                   ℹ️ <strong>Étape indispensable</strong> — le coffret ne fonctionnera pas sans cette configuration.
                 </p>
               </div>
@@ -162,7 +163,7 @@ export default function StepUPGVerification({ state, setState }) {
               ].map(step => (
                 <div key={step.n} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
                   <div style={{
-                    width: 28, height: 28, borderRadius: "50%", background: "#111827",
+                    width: 28, height: 28, borderRadius: "50%", background: "var(--color-primary)",
                     color: "white", display: "flex", alignItems: "center", justifyContent: "center",
                     fontSize: 13, fontWeight: 700, flexShrink: 0, marginTop: 1,
                   }}>{step.n}</div>
@@ -176,21 +177,22 @@ export default function StepUPGVerification({ state, setState }) {
               <Collapsible
                 icon="⚠️"
                 label="Valeurs incohérentes (mélange +/−) ?"
-                color="#92400E"
-                bgColor="#FFF7ED"
-                borderColor="#F59E0B"
+                color="var(--color-warning-dark)"
+                bgColor="var(--color-warning-light)"
+                borderColor="var(--color-warning)"
               >
-                <p style={{ fontSize: 14, color: "#92400E", lineHeight: 1.5 }}>
+                <p style={{ fontSize: 14, color: "var(--color-warning-dark)", lineHeight: 1.5 }}>
                   Inversez la position des pinces dont la polarité est erronée.
                   Toutes les phases doivent afficher des valeurs négatives.
                 </p>
               </Collapsible>
 
               <div style={{
-                background: "#F0FDF4", borderLeft: "3px solid #22C55E",
+                background: "var(--color-success-light)", borderLeft: "3px solid var(--color-success)",
                 borderRadius: 8, padding: "12px 14px",
+                color: "var(--color-success-dark)",
               }}>
-                <p style={{ fontSize: 14, color: "#166534", fontWeight: 600, lineHeight: 1.5 }}>
+                <p style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.5 }}>
                   ✅ Installation terminée — Le coffret Robin Heat (UPG H) est opérationnel — la PAC est pilotable via SG-Ready par mylight150.
                 </p>
               </div>
