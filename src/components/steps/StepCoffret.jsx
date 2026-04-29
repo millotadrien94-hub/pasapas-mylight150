@@ -150,7 +150,19 @@ function CoffretCard({ coffret, selected, recommended, onSelect }) {
           />
         </div>
         <div className="sel-card-body">
-          <p className="sel-card-name">{coffret.name}</p>
+          {(() => {
+            const match = coffret.name.match(/^([^(]+)\s*(\(.+\))?$/);
+            return (
+              <>
+                <p className="sel-card-name">{match?.[1]?.trim() ?? coffret.name}</p>
+                {match?.[2] && (
+                  <p style={{ fontSize: 12, color: "var(--color-text-secondary)", marginTop: 1 }}>
+                    {match[2]}
+                  </p>
+                )}
+              </>
+            );
+          })()}
           <div className="sel-card-tags">
             {recommended && (
               <span style={{
