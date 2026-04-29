@@ -6,21 +6,21 @@ import CheckMark from "../CheckMark";
 const COFFRETS = [
   {
     id: "X",
-    name: "Robin Plus",
+    name: "Robin Plus (Coffret X, U, E)",
     tags: ["CT général", "CT solaire"],
     equipementsInclus: ["CT_GENERAL", "CT_SOLAIRE"],
     img: coffretImg,
   },
   {
     id: "H",
-    name: "Robin Max",
+    name: "Robin Max (Coffret H)",
     tags: ["CT général", "CT solaire"],
     equipementsInclus: ["CT_GENERAL", "CT_SOLAIRE"],
     img: coffretImg,
   },
   {
     id: "MG3",
-    name: "MG3 seule",
+    name: "Robin Core (Smart Master G3)",
     tags: ["Mono & Tri"],
     equipementsInclus: [],
     img: mg3Img,

@@ -1,4 +1,4 @@
-const COFFRET_NAMES = { X: "Robin Plus", H: "Robin Max", MG3: "MG3 seule" };
+const COFFRET_NAMES = { X: "Robin Plus (Coffret X, U, E)", H: "Robin Max (Coffret H)", MG3: "Robin Core (Smart Master G3)" };
 
 export default function Step7({ state }) {
   const modeInstallation = state.typeInstallation === "tri" ? "Triphasé" : "Monophasé";
