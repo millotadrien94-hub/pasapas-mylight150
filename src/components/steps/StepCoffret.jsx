@@ -156,8 +156,8 @@ function CoffretCard({ coffret, selected, recommended, onSelect }) {
               <>
                 <p className="sel-card-name">{match?.[1]?.trim() ?? coffret.name}</p>
                 {match?.[2] && (
-                  <p style={{ fontSize: 12, color: "var(--color-text-secondary)", marginTop: 1 }}>
-                    {match[2]}
+                  <p style={{ fontSize: 12, color: "var(--color-text-secondary)", marginTop: 0 }}>
+                    {match[2].replace(/^\(|\)$/g, "")}
                   </p>
                 )}
               </>
