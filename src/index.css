@@ -672,7 +672,7 @@ body {
    Numbered steps
    ============================================ */
 
-.numbered-steps { display: flex; flex-direction: column; gap: 12px; padding: 4px 0; }
+.numbered-steps { display: flex; flex-direction: column; gap: 12px; padding: 12px 0 12px 12px; }
 
 .numbered-step { display: flex; gap: 12px; align-items: flex-start; }
 

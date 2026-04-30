@@ -4,17 +4,17 @@ const STEP_LABELS = [
   "Coffret",               // 2
   "Type d'installation",   // 3
   "Compteurs",             // 4
-  "UPM — Compatibilité",   // 5  optionnel
-  "UPM — Raccordement",    // 6  optionnel
-  "UPM — Vérification",    // 7  optionnel
-  "UPG — Compatibilité",   // 8  optionnel
-  "UPG — Matériel",        // 9  optionnel
-  "UPG — Raccordement",    // 10 optionnel
-  "UPG — Vérification",    // 11 optionnel
-  "Schéma de principe",    // 12
-  "CT1 — Consommation",    // 13
-  "CT2 — Chauffe-eau",     // 14
-  "CT3 — Production",      // 15 optionnel
+  "Schéma de principe",    // 5
+  "CT1 — Consommation",    // 6
+  "CT2 — Chauffe-eau",     // 7
+  "CT3 — Production",      // 8  optionnel
+  "UPM — Compatibilité",   // 9  optionnel
+  "UPM — Raccordement",    // 10 optionnel
+  "UPM — Vérification",    // 11 optionnel
+  "UPG — Compatibilité",   // 12 optionnel
+  "UPG — Matériel",        // 13 optionnel
+  "UPG — Raccordement",    // 14 optionnel
+  "UPG — Vérification",    // 15 optionnel
   "Compteur Modbus RS485", // 16 optionnel
   "Borne de recharge",     // 17 optionnel
   "Connexion internet",    // 18
@@ -22,7 +22,7 @@ const STEP_LABELS = [
   "Terminé",               // 20
 ];
 
-const OPTIONAL_STEPS = new Set([5, 6, 7, 8, 9, 10, 11, 15, 16, 17]);
+const OPTIONAL_STEPS = new Set([8, 9, 10, 11, 12, 13, 14, 15, 16, 17]);
 
 function getVisible(appState) {
   const eq      = appState?.equipements || [];
@@ -30,14 +30,14 @@ function getVisible(appState) {
   const hasUPM  = compteurs.includes("UPM");
   const hasUPG  = compteurs.includes("UPG");
   return STEP_LABELS.map((_, i) => {
-    if (i === 5  && !hasUPM)               return false;
-    if (i === 6  && !hasUPM)               return false;
-    if (i === 7  && !hasUPM)               return false;
-    if (i === 8  && !hasUPG)               return false;
-    if (i === 9  && !hasUPG)               return false;
-    if (i === 10 && !hasUPG)               return false;
-    if (i === 11 && !hasUPG)               return false;
-    if (i === 15 && !eq.includes("CE"))    return false;
+    if (i === 8  && !eq.includes("CE"))    return false;
+    if (i === 9  && !hasUPM)               return false;
+    if (i === 10 && !hasUPM)               return false;
+    if (i === 11 && !hasUPM)               return false;
+    if (i === 12 && !hasUPG)               return false;
+    if (i === 13 && !hasUPG)               return false;
+    if (i === 14 && !hasUPG)               return false;
+    if (i === 15 && !hasUPG)               return false;
     if (i === 16 && !(appState?.compteursSupplementaires || []).includes("SDM120")) return false;
     if (i === 17 && !eq.includes("BdR"))   return false;
     return true;

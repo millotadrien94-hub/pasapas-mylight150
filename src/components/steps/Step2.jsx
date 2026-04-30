@@ -91,8 +91,8 @@ export default function Step2({ state, setState }) {
                 { src: photo1Depart,    alt: "1 départ — correct",   badge: photoOk,    bg: "#DFF2E9" },
                 { src: photoDeuxDepart, alt: "2 départs — incorrect", badge: photoNoOk,  bg: "#FDE7E3" },
               ].map(({ src, alt, badge, bg }) => (
-                <div key={alt} style={{ flex: 1, position: "relative", height: 229 }}>
-                  <img src={src} alt={alt} style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 8, display: "block" }} />
+                <div key={alt} style={{ flex: 1, position: "relative", aspectRatio: "1/1", background: "var(--color-bg-subtle)", borderRadius: 8, overflow: "hidden" }}>
+                  <img src={src} alt={alt} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
                   <div style={{
                     position: "absolute", bottom: 8, left: "50%", transform: "translateX(-50%)",
                     width: 36, height: 36, borderRadius: "50%",

@@ -5,33 +5,37 @@ import sdm120Img from "../../assets/SDM120.png";
 import mg3c01rmImg from "../../assets/MG3C01RM.png";
 import upmImg from "../../assets/UPM.jpg";
 
-const COMPTEURS_MONO = {
-  traversants: [
-    { id: "MC1D01RM", name: "MC1D01RM", desc: "Mesure un circuit supplémentaire", tag: "Monophasé", img: mc1d01rmImg },
-  ],
-  pinces: [
-    { id: "SDM120", name: "SDM120", desc: "Mesure un circuit supplémentaire", tag: "Monophasé", img: sdm120Img, imgFit: "contain" },
-  ],
-};
+const TRAVERSANTS = [
+  { id: "MC1D01RM", name: "MC1D01RM", desc: "Mesure un circuit supplémentaire", tag: "Monophasé", img: mc1d01rmImg },
+  { id: "MC3D01RM", name: "MC3D01RM", desc: "Mesure un circuit supplémentaire", tag: "Triphasé",  img: mc3d01rmImg },
+];
 
-const COMPTEURS_TRI = {
-  traversants: [
-    { id: "MC3D01RM", name: "MC3D01RM", desc: "Mesure un circuit supplémentaire", tag: "Triphasé", img: mc3d01rmImg },
-  ],
-  pinces: [
-    { id: "MG3C01RM", name: "MG3C01RM", desc: "Mesure un circuit supplémentaire", tag: "Triphasé", img: mg3c01rmImg },
-  ],
-};
+const PINCES = [
+  { id: "SDM120",   name: "SDM120",   desc: "Mesure un circuit supplémentaire", tag: "Monophasé", img: sdm120Img,   imgFit: "contain" },
+  { id: "MG3C01RM", name: "MG3C01RM", desc: "Mesure un circuit supplémentaire", tag: "Triphasé",  img: mg3c01rmImg },
+];
 
 const MODULES = [
-  { id: "UPM", name: "Robin Link (UPM)",  desc: "Communication sans fil W-Modbus", tag: "Radio 868 MHz", img: upmImg },
-  { id: "UPG", name: "Robin Heat (UPG H)", desc: "Pilotage PAC via SG-Ready",       tag: "SG-Ready",     img: upmImg },
+  { id: "UPM", name: "Robin Link (UPM)",   desc: "Communication sans fil W-Modbus jusqu'à 400 mètres", img: upmImg },
+  { id: "UPG", name: "Robin Heat (UPG H)", desc: "Pilotage via SG-Ready",                              img: upmImg },
 ];
 
 export default function StepCompteurs({ state, setState }) {
   const selected = state.compteursSupplementaires || [];
   const isTri = state.typeInstallation === "tri";
-  const compteurs = isTri ? COMPTEURS_TRI : COMPTEURS_MONO;
+  const eq = state.equipements || [];
+  const hideMono = isTri && (eq.includes("PAC") || eq.includes("BdR"));
+
+  const traversants = TRAVERSANTS.filter(c => {
+    if (c.id === "MC3D01RM") return isTri;
+    if (c.id === "MC1D01RM") return !hideMono;
+    return true;
+  });
+  const pinces = PINCES.filter(c => {
+    if (c.id === "MG3C01RM") return isTri;
+    if (c.id === "SDM120")   return !hideMono;
+    return true;
+  });
 
   const toggle = (id) => {
     const next = selected.includes(id)
@@ -85,7 +89,7 @@ export default function StepCompteurs({ state, setState }) {
       <Section
         title="Compteurs traversants"
         desc="Le câble électrique passe à l'intérieur"
-        items={compteurs.traversants}
+        items={traversants}
         selected={selected}
         onToggle={toggle}
       />
@@ -93,7 +97,7 @@ export default function StepCompteurs({ state, setState }) {
       <Section
         title="Compteurs à pinces"
         desc="Se clippe autour du câble existant"
-        items={compteurs.pinces}
+        items={pinces}
         selected={selected}
         onToggle={toggle}
       />
@@ -145,7 +149,7 @@ function Section({ title, desc, items, selected, onToggle }) {
                 <p className="list-row-subtitle">{item.desc}</p>
               </div>
               <div className="list-row-trailing" style={{ gap: 6, display: "flex", alignItems: "center" }}>
-                <span className="tag-pill">{item.tag}</span>
+                {item.tag && <span className="tag-pill">{item.tag}</span>}
                 <div className={`check-circle ${isSelected ? "checked" : ""}`}>
                   {isSelected && <CheckMark />}
                 </div>

@@ -4,7 +4,7 @@ export default function StepModbus() {
   return (
     <div className="step-page">
       <div className="step-page-header">
-        <h1 className="t-title2">Compteur Modbus RS485</h1>
+        <h1 className="t-title2">Compteur supplémentaire SDM120</h1>
       </div>
 
       <div className="step-page-section">

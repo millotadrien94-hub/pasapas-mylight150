@@ -32,18 +32,18 @@ const IDX = {
   COFFRET:      2,
   TYPE_INST:    3,
   COMPTEURS:    4,
-  UPM_COMPAT:   5,  // optionnel
-  UPM_BRANCH:   6,  // optionnel
-  UPM_VERIF:    7,  // optionnel
-  UPG_COMPAT:   8,  // optionnel
-  UPG_MATERIEL: 9,  // optionnel
-  UPG_BRANCH:   10, // optionnel
-  UPG_VERIF:    11, // optionnel
-  FIXATION:     12,
-  CT1:          13,
-  CT2:          14,
-  CE:           15, // optionnel
-  MODBUS:       16, // optionnel, si RS485
+  FIXATION:     5,
+  CT1:          6,
+  CT2:          7,
+  CE:           8,  // optionnel (CT3 Production)
+  UPM_COMPAT:   9,  // optionnel
+  UPM_BRANCH:   10, // optionnel
+  UPM_VERIF:    11, // optionnel
+  UPG_COMPAT:   12, // optionnel
+  UPG_MATERIEL: 13, // optionnel
+  UPG_BRANCH:   14, // optionnel
+  UPG_VERIF:    15, // optionnel
+  MODBUS:       16, // optionnel, si SDM120
   BDR:          17, // optionnel
   INTERNET:     18,
   TENSION:      19,
@@ -52,28 +52,28 @@ const IDX = {
 };
 
 const STEPS = [
-  StepHome,
-  StepEquipements,
-  StepCoffret,
-  StepInstallationType,
-  StepCompteurs,
-  StepUPMCompatibilite,
-  StepUPMBranchement,
-  StepUPMVerification,
-  StepUPGCompatibilite,
-  StepUPGMateriel,
-  StepUPGBranchement,
-  StepUPGVerification,
-  Step1,
-  Step2,
-  Step3,
-  Step4,
-  StepModbus,
-  Step5,
-  StepInternet,
-  Step6,
-  Step7,
-  StepAddPlaceholder,
+  StepHome,           // 0
+  StepEquipements,    // 1
+  StepCoffret,        // 2
+  StepInstallationType, // 3
+  StepCompteurs,      // 4
+  Step1,              // 5 FIXATION
+  Step2,              // 6 CT1
+  Step3,              // 7 CT2
+  Step4,              // 8 CE (CT3 Production)
+  StepUPMCompatibilite, // 9
+  StepUPMBranchement, // 10
+  StepUPMVerification, // 11
+  StepUPGCompatibilite, // 12
+  StepUPGMateriel,    // 13
+  StepUPGBranchement, // 14
+  StepUPGVerification, // 15
+  StepModbus,         // 16
+  Step5,              // 17 BDR
+  StepInternet,       // 18
+  Step6,              // 19 TENSION
+  Step7,              // 20 FIN
+  StepAddPlaceholder, // 21
 ];
 
 // Retourne les indices d'étapes visibles selon l'état

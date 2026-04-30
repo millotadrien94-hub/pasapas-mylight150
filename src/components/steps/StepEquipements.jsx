@@ -32,11 +32,7 @@ const EQUIPEMENTS_ALL = [
 
 export default function StepEquipements({ state, setState }) {
   const selected = state.equipements || [];
-  const coffret = state.coffretSelectionne;
-
-  // Robin Plus (X) → pas de PAC ; Robin Max (H) ou MG3 → PAC disponible
-  const hasPAC = coffret === "H" || coffret === "MG3" || !coffret;
-  const equipements = EQUIPEMENTS_ALL.filter(eq => eq.id !== "PAC" || hasPAC);
+  const equipements = EQUIPEMENTS_ALL;
 
   const toggle = (id) => {
     if (id === "AUCUN") {
