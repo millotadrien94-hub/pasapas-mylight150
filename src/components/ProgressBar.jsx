@@ -15,31 +15,39 @@ const STEP_LABELS = [
   "UPG — Matériel",        // 13 optionnel
   "UPG — Raccordement",    // 14 optionnel
   "UPG — Vérification",    // 15 optionnel
-  "Compteur Modbus RS485", // 16 optionnel
-  "Borne de recharge",     // 17 optionnel
-  "Connexion internet",    // 18
-  "Mise sous tension",     // 19
-  "Terminé",               // 20
+  "Compteur SDM120",       // 16 optionnel
+  "Compteur MC1D01RM",     // 17 optionnel
+  "Compteur MC3D01RM",     // 18 optionnel
+  "Compteur MG3C01RM",     // 19 optionnel
+  "Borne de recharge",     // 20 optionnel
+  "Connexion internet",    // 21
+  "Mise sous tension",     // 22
+  "Terminé",               // 23
 ];
 
-const OPTIONAL_STEPS = new Set([8, 9, 10, 11, 12, 13, 14, 15, 16, 17]);
+const OPTIONAL_STEPS = new Set([8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
 
 function getVisible(appState) {
   const eq      = appState?.equipements || [];
   const compteurs = appState?.compteursSupplementaires || [];
   const hasUPM  = compteurs.includes("UPM");
   const hasUPG  = compteurs.includes("UPG");
+  const isMono  = appState?.typeInstallation === "mono";
+  const isTri   = appState?.typeInstallation === "tri";
   return STEP_LABELS.map((_, i) => {
-    if (i === 8  && !eq.includes("CE"))    return false;
-    if (i === 9  && !hasUPM)               return false;
-    if (i === 10 && !hasUPM)               return false;
-    if (i === 11 && !hasUPM)               return false;
-    if (i === 12 && !hasUPG)               return false;
-    if (i === 13 && !hasUPG)               return false;
-    if (i === 14 && !hasUPG)               return false;
-    if (i === 15 && !hasUPG)               return false;
-    if (i === 16 && !(appState?.compteursSupplementaires || []).includes("SDM120")) return false;
-    if (i === 17 && !eq.includes("BdR"))   return false;
+    if (i === 8  && !eq.includes("CE"))                              return false;
+    if (i === 9  && !hasUPM)                                         return false;
+    if (i === 10 && !hasUPM)                                         return false;
+    if (i === 11 && !hasUPM)                                         return false;
+    if (i === 12 && !hasUPG)                                         return false;
+    if (i === 13 && !hasUPG)                                         return false;
+    if (i === 14 && !hasUPG)                                         return false;
+    if (i === 15 && !hasUPG)                                         return false;
+    if (i === 16 && !(compteurs.includes("SDM120")   && isMono))    return false;
+    if (i === 17 && !(compteurs.includes("MC1D01RM") && isMono))    return false;
+    if (i === 18 && !(compteurs.includes("MC3D01RM") && isTri))     return false;
+    if (i === 19 && !(compteurs.includes("MG3C01RM") && isTri))     return false;
+    if (i === 20 && !eq.includes("BdR"))                             return false;
     return true;
   });
 }

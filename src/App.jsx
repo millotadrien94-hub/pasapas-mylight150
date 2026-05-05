@@ -19,7 +19,10 @@ import Step1 from "./components/steps/Step1";
 import Step2 from "./components/steps/Step2";
 import Step3 from "./components/steps/Step3";
 import Step4 from "./components/steps/Step4";
-import StepModbus from "./components/steps/StepModbus";
+import StepSDM120 from "./components/steps/StepSDM120";
+import StepMC1D01RM from "./components/steps/StepMC1D01RM";
+import StepMC3D01RM from "./components/steps/StepMC3D01RM";
+import StepMG3C01RM from "./components/steps/StepMG3C01RM";
 import Step5 from "./components/steps/Step5";
 import StepInternet from "./components/steps/StepInternet";
 import Step6 from "./components/steps/Step6";
@@ -43,12 +46,15 @@ const IDX = {
   UPG_MATERIEL: 13, // optionnel
   UPG_BRANCH:   14, // optionnel
   UPG_VERIF:    15, // optionnel
-  MODBUS:       16, // optionnel, si SDM120
-  BDR:          17, // optionnel
-  INTERNET:     18,
-  TENSION:      19,
-  FIN:          20,
-  ADD_PLACEHOLDER: 21,
+  SDM120:       16, // optionnel: mono + SDM120
+  MC1D01RM:     17, // optionnel: mono + MC1D01RM
+  MC3D01RM:     18, // optionnel: tri + MC3D01RM
+  MG3C01RM:     19, // optionnel: tri + MG3C01RM
+  BDR:          20, // optionnel
+  INTERNET:     21,
+  TENSION:      22,
+  FIN:          23,
+  ADD_PLACEHOLDER: 24,
 };
 
 const STEPS = [
@@ -68,12 +74,15 @@ const STEPS = [
   StepUPGMateriel,    // 13
   StepUPGBranchement, // 14
   StepUPGVerification, // 15
-  StepModbus,         // 16
-  Step5,              // 17 BDR
-  StepInternet,       // 18
-  Step6,              // 19 TENSION
-  Step7,              // 20 FIN
-  StepAddPlaceholder, // 21
+  StepSDM120,         // 16
+  StepMC1D01RM,       // 17
+  StepMC3D01RM,       // 18
+  StepMG3C01RM,       // 19
+  Step5,              // 20 BDR
+  StepInternet,       // 21
+  Step6,              // 22 TENSION
+  Step7,              // 23 FIN
+  StepAddPlaceholder, // 24
 ];
 
 // Retourne les indices d'étapes visibles selon l'état
@@ -84,19 +93,27 @@ function getVisibleSteps(state) {
   const hasBdR   = eq.includes("BdR");
   const hasUPM   = compteurs.includes("UPM");
   const hasUPG   = compteurs.includes("UPG");
-  const hasModbus = (state.compteursSupplementaires || []).includes("SDM120");
+  const isMono   = state.typeInstallation === "mono";
+  const isTri    = state.typeInstallation === "tri";
+  const hasSDM120   = compteurs.includes("SDM120")   && isMono;
+  const hasMC1D01RM = compteurs.includes("MC1D01RM") && isMono;
+  const hasMC3D01RM = compteurs.includes("MC3D01RM") && isTri;
+  const hasMG3C01RM = compteurs.includes("MG3C01RM") && isTri;
   return STEPS.map((_, i) => {
-    if (i === IDX.UPM_COMPAT   && !hasUPM)    return false;
-    if (i === IDX.UPM_BRANCH   && !hasUPM)    return false;
-    if (i === IDX.UPM_VERIF    && !hasUPM)    return false;
-    if (i === IDX.UPG_COMPAT   && !hasUPG)    return false;
-    if (i === IDX.UPG_MATERIEL && !hasUPG)    return false;
-    if (i === IDX.UPG_BRANCH   && !hasUPG)    return false;
-    if (i === IDX.UPG_VERIF    && !hasUPG)    return false;
-    if (i === IDX.CE           && !hasCE)     return false;
-    if (i === IDX.MODBUS       && !hasModbus) return false;
-    if (i === IDX.BDR          && !hasBdR)    return false;
-    if (i === IDX.ADD_PLACEHOLDER)            return false;
+    if (i === IDX.UPM_COMPAT   && !hasUPM)      return false;
+    if (i === IDX.UPM_BRANCH   && !hasUPM)      return false;
+    if (i === IDX.UPM_VERIF    && !hasUPM)      return false;
+    if (i === IDX.UPG_COMPAT   && !hasUPG)      return false;
+    if (i === IDX.UPG_MATERIEL && !hasUPG)      return false;
+    if (i === IDX.UPG_BRANCH   && !hasUPG)      return false;
+    if (i === IDX.UPG_VERIF    && !hasUPG)      return false;
+    if (i === IDX.CE           && !hasCE)       return false;
+    if (i === IDX.SDM120       && !hasSDM120)   return false;
+    if (i === IDX.MC1D01RM     && !hasMC1D01RM) return false;
+    if (i === IDX.MC3D01RM     && !hasMC3D01RM) return false;
+    if (i === IDX.MG3C01RM     && !hasMG3C01RM) return false;
+    if (i === IDX.BDR          && !hasBdR)      return false;
+    if (i === IDX.ADD_PLACEHOLDER)              return false;
     return true;
   });
 }
@@ -123,7 +140,10 @@ function isStepComplete(stepIdx, state) {
     case IDX.CT1:          return allChecked("step2", 2);
     case IDX.CT2:          return allChecked("step3", 2);
     case IDX.CE:           return allChecked("step4", 2);
-    case IDX.MODBUS:       return true;
+    case IDX.SDM120:       return true;
+    case IDX.MC1D01RM:     return true;
+    case IDX.MC3D01RM:     return true;
+    case IDX.MG3C01RM:     return true;
     case IDX.BDR:          return allChecked("step5", 3);
     case IDX.INTERNET:     return true;
     case IDX.TENSION:      return allChecked("step6", 1);
