@@ -1,5 +1,7 @@
 import { useState } from "react";
 import CheckMark from "../CheckMark";
+import schemaSans from "../../assets/Schema_Robin Link_Sans compteur.jpg";
+import schemaAvec from "../../assets/Schema_Robin Link_Avec compteur.jpg";
 
 // ─── Primitives ────────────────────────────────────────────────────────────
 
@@ -111,9 +113,18 @@ export default function StepUPMBranchement({ state, setState }) {
               <p style={{ fontSize: 17, fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 4 }}>
                 Câblage du transformateur
               </p>
-              <p style={{ fontSize: 15, color: "var(--label-2)", marginBottom: 20 }}>
-                Connectez le transformateur à l'UCG et au W-Modbus
+              <p style={{ fontSize: 15, color: "var(--label-2)", marginBottom: 16 }}>
+                Alimentez le transformateur
               </p>
+
+              <div className="notice notice-orange" style={{ marginBottom: 20 }}>
+                <span className="notice-icon">⚠️</span>
+                <div className="notice-body">
+                  <p className="notice-text">
+                    <strong>Attention :</strong> Le câble 230V se fait en partie basse du transformateur ( en orange )
+                  </p>
+                </div>
+              </div>
 
               <SubLabel label="Transformateur 230V/12V → UCG" />
               <ConnGroup rows={[
@@ -134,7 +145,7 @@ export default function StepUPMBranchement({ state, setState }) {
               <CheckRow
                 checked={!!checks[0]}
                 onToggle={() => toggle(0)}
-                label="Transformateur câblé (UCG + W-Modbus)"
+                label="Transformateur câblé (Robin + W-Modbus)"
               />
             </div>
           </div>
@@ -147,7 +158,7 @@ export default function StepUPMBranchement({ state, setState }) {
           <div className="step-page-section">
             <div style={{ padding: "0 16px" }}>
               <p style={{ fontSize: 17, fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 16 }}>
-                Liaison RS485
+                Etablir la communication entre Robin Link et Robin Core
               </p>
 
               <div className="segmented">
@@ -162,7 +173,7 @@ export default function StepUPMBranchement({ state, setState }) {
 
               <p style={{ fontSize: 14, color: "var(--label-2)", marginBottom: 12 }}>
                 {!avecRS485
-                  ? "Reliez directement le W-Modbus au bornier RS485 de la MG3"
+                  ? "Reliez directement le Robin Link au bornier RS485 de Robin Core"
                   : "Raccordez au dernier compteur RS485 de la chaîne"}
               </p>
 
@@ -170,6 +181,14 @@ export default function StepUPMBranchement({ state, setState }) {
                 ? [["RS485-A", "A"], ["RS485-B", "B"]]
                 : [["A", "A"], ["B", "B"]]
               } />
+
+              <div className="list-group" style={{ padding: 14 }}>
+                <img
+                  src={avecRS485 ? schemaAvec : schemaSans}
+                  alt={avecRS485 ? "Schéma avec compteur RS485" : "Schéma sans compteur RS485"}
+                  style={{ width: "100%", borderRadius: 8 }}
+                />
+              </div>
             </div>
           </div>
 
@@ -215,14 +234,15 @@ export default function StepUPMBranchement({ state, setState }) {
               ) : (
                 <>
                   <SubLabel label="MG3C01RM — 3 pinces" />
-                  <ConnGroup rows={[
-                    ["Pince 1  S1 (blanc)", "Borne 1"],
-                    ["Pince 1  S2 (noir)",  "S2"],
-                    ["Pince 2  S1 (blanc)", "Borne 2"],
-                    ["Pince 2  S2 (noir)",  "S2"],
-                    ["Pince 3  S1 (blanc)", "Borne 3"],
-                    ["Pince 3  S2 (noir)",  "S2"],
-                  ]} />
+                  {[1, 2, 3].map(n => (
+                    <div key={n}>
+                      <SubLabel label={`Pince ${n}`} />
+                      <ConnGroup rows={[
+                        [`S1 (blanc)`, `Borne ${n}`],
+                        [`S2 (noir)`,  "S2"],
+                      ]} />
+                    </div>
+                  ))}
                 </>
               )}
 

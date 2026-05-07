@@ -1,4 +1,4 @@
-import sdm120Img from "../../assets/SDM120.png";
+import sdm120Img from "../../assets/Schema_SDM120.jpg";
 
 const S1 = { background: "#DBEAFE", color: "#1D4ED8", borderRadius: 4, padding: "2px 6px", fontWeight: 600, fontSize: 12 };
 const S2 = { background: "#111827", color: "white",   borderRadius: 4, padding: "2px 6px", fontWeight: 600, fontSize: 12 };

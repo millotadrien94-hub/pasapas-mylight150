@@ -1,4 +1,3 @@
-import { useState } from "react";
 import coffretImg from "../../assets/coffret.png";
 import mg3Img from "../../assets/smart-master-mg3.jpg";
 import CheckMark from "../CheckMark";
@@ -6,37 +5,29 @@ import CheckMark from "../CheckMark";
 const COFFRETS = [
   {
     id: "X",
-    name: "Robin Plus (Coffret X, U, E)",
-    tags: ["CT général", "CT solaire"],
+    name: "Robin Plus (Ex : Gamme X)",
+    tags: ["Chauffe-eau", "Borne de recharge"],
     equipementsInclus: ["CT_GENERAL", "CT_SOLAIRE"],
     img: coffretImg,
   },
   {
     id: "H",
-    name: "Robin Max (Coffret H)",
-    tags: ["CT général", "CT solaire"],
+    name: "Robin Max (Ex : Gamme H)",
+    tags: ["Chauffe-eau", "Borne de recharge", "Borne de recharge"],
     equipementsInclus: ["CT_GENERAL", "CT_SOLAIRE"],
     img: coffretImg,
   },
   {
     id: "MG3",
-    name: "Robin Core (Smart Master G3)",
-    tags: ["Mono & Tri"],
+    name: "Robin Core (Ex : MG3)",
+    tags: [],
     equipementsInclus: [],
     img: mg3Img,
   },
 ];
 
-function getRecommended(equipements) {
-  if (equipements.includes("CE"))  return "X";
-  if (equipements.includes("PAC")) return "H";
-  return "MG3";
-}
-
 export default function StepCoffret({ state, setState }) {
   const selected = state.coffretSelectionne;
-  const recommended = getRecommended(state.equipements || []);
-  const [showModal, setShowModal] = useState(false);
 
   const handleSelect = (coffret) => {
     setState(prev => ({
@@ -51,7 +42,7 @@ export default function StepCoffret({ state, setState }) {
       <div className="step-page-header">
         <h1 className="t-large-title">Quel coffret avez-vous ?</h1>
         <p style={{ fontSize: 17, color: "var(--label-2)", marginTop: 6 }}>
-          Sélectionnez le coffret que vous avez reçu ou acheté
+          Sélectionnez votre modèle de coffret
         </p>
       </div>
 
@@ -62,14 +53,13 @@ export default function StepCoffret({ state, setState }) {
               key={c.id}
               coffret={c}
               selected={selected === c.id}
-              recommended={recommended === c.id}
               onSelect={handleSelect}
             />
           ))}
         </div>
 
         <button
-          onClick={() => setShowModal(true)}
+          onClick={() => window.open("https://intercom-help.eu/mylight150com/fr/articles/497488-les-differentes-gammes-de-coffrets", "_blank")}
           style={{
             display: "block",
             margin: "20px auto 4px",
@@ -84,59 +74,11 @@ export default function StepCoffret({ state, setState }) {
           Je ne sais pas quel coffret j'ai →
         </button>
       </div>
-
-      {showModal && (
-        <div
-          style={{
-            position: "fixed", inset: 0, zIndex: 1000,
-            background: "rgba(0,0,0,0.6)",
-            display: "flex", alignItems: "flex-end", justifyContent: "center",
-          }}
-          onClick={() => setShowModal(false)}
-        >
-          <div
-            style={{
-              background: "#fff", borderRadius: "20px 20px 0 0",
-              width: "100%", maxWidth: 618,
-              padding: "24px 20px 40px",
-              display: "flex", flexDirection: "column", gap: 16,
-            }}
-            onClick={e => e.stopPropagation()}
-          >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <p style={{ fontWeight: 700, fontSize: 18, color: "var(--color-text-primary)" }}>
-                Identifier mon coffret
-              </p>
-              <button
-                onClick={() => setShowModal(false)}
-                style={{
-                  background: "var(--fill-3)", border: "none", borderRadius: "50%",
-                  width: 30, height: 30, cursor: "pointer",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 16, color: "var(--label-2)",
-                }}
-              >
-                ×
-              </button>
-            </div>
-            <div style={{
-              background: "var(--fill-1)", borderRadius: 12,
-              padding: "32px 16px",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              minHeight: 180,
-            }}>
-              <p style={{ color: "var(--label-3)", fontSize: 15, textAlign: "center" }}>
-                Visuel comparatif des coffrets — coming soon
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
 
-function CoffretCard({ coffret, selected, recommended, onSelect }) {
+function CoffretCard({ coffret, selected, onSelect }) {
   return (
     <div
       className={`sel-card ${selected ? "selected" : ""}`}
@@ -164,20 +106,8 @@ function CoffretCard({ coffret, selected, recommended, onSelect }) {
             );
           })()}
           <div className="sel-card-tags">
-            {recommended && (
-              <span style={{
-                display: "inline-block",
-                padding: "2px 8px",
-                borderRadius: 99,
-                background: "var(--color-secondary-100)",
-                color: "var(--color-secondary-700)",
-                border: "1px solid var(--color-secondary-300)",
-                fontSize: 12,
-                fontWeight: 600,
-              }}>Recommandé</span>
-            )}
-            {coffret.tags.map(t => (
-              <span key={t} className="tag-pill accent">{t}</span>
+            {coffret.tags.map((t, i) => (
+              <span key={i} className="tag-pill accent">{t}</span>
             ))}
           </div>
         </div>

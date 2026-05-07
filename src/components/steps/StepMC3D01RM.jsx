@@ -1,4 +1,4 @@
-import mc3d01rmImg from "../../assets/MC3D01RM.jpeg";
+import mc3d01rmImg from "../../assets/Schema_MC3D01RM.jpg";
 
 export default function StepMC3D01RM() {
   return (

@@ -146,7 +146,7 @@ export default function StepUPMVerification({ state, setState }) {
           {[
             {
               n: 1,
-              title: "Déclarer l'UPM dans l'application",
+              title: "Déclarer le Robin Link dans l'application",
               body: "Sans déclaration, les voyants TXD/RXD ne clignoteront pas et la communication avec la MG3 ne sera pas établie.",
             },
             {
@@ -185,7 +185,7 @@ export default function StepUPMVerification({ state, setState }) {
         <div style={{ padding: "0 16px" }}>
           <div style={BANNER_GREEN}>
             <p style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.5 }}>
-              ✅ Installation terminée — Le coffret Robin Link (UPM) est opérationnel et communique avec la MG3.
+              ✅ Installation terminée — Le coffret Robin Link est opérationnel et communique avec la MG3.
             </p>
           </div>
         </div>

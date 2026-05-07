@@ -120,7 +120,7 @@ export default function StepUPGBranchement({ state, setState }) {
 
               <p style={{ fontSize: 14, color: "var(--label-2)", marginBottom: 12 }}>
                 {!avecRS485
-                  ? "Relier directement le W-Modbus au bornier RS485 de la MG3 :"
+                  ? "Reliez directement le Robin Heat au bornier RS485 de Robin Core :"
                   : "Raccorder le W-Modbus au dernier compteur RS485 de la chaîne :"}
               </p>
 
@@ -234,11 +234,15 @@ export default function StepUPGBranchement({ state, setState }) {
                       <p style={{ fontSize: 14, color: "var(--color-text-primary)", lineHeight: 1.5 }}>{txt}</p>
                     </div>
                   ))}
-                  <ConnGroup rows={[
-                    ["Pince 1 S1 blanc", "Borne 1"], ["Pince 1 S2 noir", "S2"],
-                    ["Pince 2 S1 blanc", "Borne 2"], ["Pince 2 S2 noir", "S2"],
-                    ["Pince 3 S1 blanc", "Borne 3"], ["Pince 3 S2 noir", "S2"],
-                  ]} />
+                  {[1, 2, 3].map(n => (
+                    <div key={n}>
+                      <SubLabel label={`Pince ${n}`} />
+                      <ConnGroup rows={[
+                        [`S1 (blanc)`, `Borne ${n}`],
+                        [`S2 (noir)`,  "S2"],
+                      ]} />
+                    </div>
+                  ))}
                 </>
               )}
 

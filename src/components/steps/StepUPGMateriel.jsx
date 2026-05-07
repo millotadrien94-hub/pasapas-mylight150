@@ -1,7 +1,7 @@
 import CheckMark from "../CheckMark";
 
 const MATERIEL = [
-  { name: "Coffret Robin Heat (UPG H)",             desc: "Monophasé ou Triphasé" },
+  { name: "Coffret Robin Heat",                      desc: null },
   { name: "Câble d'alimentation coffret",           desc: "Dimensionné sur le TGBT du client" },
   { name: "Câble de pilotage PAC",                  desc: "0,75mm² min contacts secs / SG-Ready ou 1,5mm² min 230V (CGWV)" },
   { name: "Câble communication Modbus RS485",       desc: "Section 0,34 à 0,75mm², souple" },
@@ -57,7 +57,7 @@ export default function StepUPGMateriel({ state, setState }) {
               }}>📦</div>
               <div className="list-row-content">
                 <p className="list-row-title" style={{ fontWeight: 500 }}>{item.name}</p>
-                <p className="list-row-subtitle">{item.desc}</p>
+                {item.desc && <p className="list-row-subtitle">{item.desc}</p>}
               </div>
             </div>
           ))}

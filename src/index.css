@@ -882,3 +882,15 @@ body {
   font-family: var(--font-family);
   padding: 4px 0;
 }
+
+/* ============================================
+   Robin Core LED overlay
+   ============================================ */
+
+@media (max-width: 768px) {
+  .robin-core-led {
+    left: calc(19% + 12px) !important;
+    width: 8px !important;
+    height: 8px !important;
+  }
+}

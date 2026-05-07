@@ -34,14 +34,14 @@ export default function StepUPGCompatibilite({ state, setState }) {
   return (
     <div className="step-page">
       <div className="step-page-header">
-        <h1 className="t-large-title">Vérifier la compatibilité UPG</h1>
+        <h1 className="t-large-title">Vérifier la compatibilité Robin Heat</h1>
       </div>
 
       <div className="step-page-section">
         <div style={{ padding: "0 16px", display: "flex", flexDirection: "column", gap: 12 }}>
           <div style={BANNER_RED}>
             <p style={{ fontSize: 14, lineHeight: 1.5 }}>
-              🔴 <strong>Rappel</strong> — Le Robin Heat (UPG H) s'ajoute à une installation mylight150 existante disposant déjà d'une MG3.
+              🔴 <strong>Rappel</strong> — Le Robin Heat s'ajoute à une installation mylight150 existante disposant déjà d'une MG3.
             </p>
           </div>
 
@@ -53,11 +53,14 @@ export default function StepUPGCompatibilite({ state, setState }) {
               La PAC doit être équipée d'une entrée SG-Ready ou équivalent (Délestage, HC/HP...).
               Vérifiez via l'outil de compatibilité mylight150 avant toute installation.
             </p>
-            <button style={{
-              background: "none", border: "none", padding: 0,
-              color: "var(--color-warning-dark)", fontSize: 14, fontWeight: 600,
-              cursor: "pointer", textDecoration: "underline",
-            }}>
+            <button
+              onClick={() => window.open("https://airtable.com/app4CtciNbe9c4RC9/shrx9zvnTE7b6nnuf", "_blank")}
+              style={{
+                background: "none", border: "none", padding: 0,
+                color: "var(--color-warning-dark)", fontSize: 14, fontWeight: 600,
+                cursor: "pointer", textDecoration: "underline",
+              }}
+            >
               Vérifier la compatibilité →
             </button>
           </div>

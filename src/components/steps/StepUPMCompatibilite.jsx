@@ -1,4 +1,6 @@
 import CheckMark from "../CheckMark";
+import schemaImg from "../../assets/Schema principe_Robin Link.jpg";
+import coffretRobinLinkImg from "../../assets/Robin Link_Coffret.jpg";
 
 const BANNER_ORANGE = {
   background: "var(--color-warning-light)",
@@ -31,16 +33,33 @@ export default function StepUPMCompatibilite({ state, setState }) {
   return (
     <div className="step-page">
       <div className="step-page-header">
-        <h1 className="t-large-title">Vérifier la compatibilité UPM</h1>
+        <h1 className="t-large-title">Vérifier la compatibilité Robin Link</h1>
       </div>
 
       <div className="step-page-section">
         <div style={{ padding: "0 16px" }}>
           <div style={BANNER_ORANGE}>
             <p style={{ fontSize: 14, lineHeight: 1.5 }}>
-              ⚠️ <strong>Un seul coffret Robin Link (UPM) est autorisé par installation.</strong>{" "}
+              ⚠️ <strong>Un seul coffret Robin Link est autorisé par installation.</strong>{" "}
               Il n'est pas possible d'en installer plusieurs sur un même site.
             </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="step-page-section">
+        <div style={{ padding: "0 16px" }}>
+          <div className="list-group" style={{ padding: 14 }}>
+            <img src={schemaImg} alt="Schéma de principe Robin Link" style={{ width: "100%", borderRadius: 8 }} />
+          </div>
+        </div>
+      </div>
+
+      <div className="step-page-section">
+        <p className="list-header" style={{ padding: "0 16px 8px" }}>Contenu du sachet</p>
+        <div style={{ padding: "0 16px" }}>
+          <div className="list-group" style={{ padding: 14 }}>
+            <img src={coffretRobinLinkImg} alt="Contenu du sachet Robin Link" style={{ width: "100%", borderRadius: 8 }} />
           </div>
         </div>
       </div>

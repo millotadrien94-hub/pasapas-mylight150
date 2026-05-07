@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Checklist from "../Checklist";
-import schemaCT1 from "../../assets/schema-ct1.png";
+import schemaCT1 from "../../assets/Schéma CT1.jpg";
 import photoDeuxDepart from "../../assets/photo-deux-depart.png";
 import photo1Depart from "../../assets/photo-1-depart.png";
 import photoOk from "../../assets/photo ok.png";
@@ -20,8 +20,12 @@ const ITEMS = [
   "Pince refermée et clipsée",
 ];
 
+const VIDEO_MONO = "https://www.youtube.com/embed/Rg3YvpZ6rgE";
+const VIDEO_TRI  = "https://www.youtube.com/embed/Vy21LsZd3hA";
+
 export default function Step2({ state, setState }) {
   const [showDepart, setShowDepart] = useState(false);
+  const videoSrc = state.typeInstallation === "tri" ? VIDEO_TRI : VIDEO_MONO;
 
   const checked = state.etapesCochees?.step2 || Array(ITEMS.length).fill(false);
   const setChecked = (arr) => setState(prev => ({
@@ -32,7 +36,7 @@ export default function Step2({ state, setState }) {
   return (
     <div className="step-page">
       <div className="step-page-header">
-        <h1 className="t-title2">MG3 — CT1 — Consommation</h1>
+        <h1 className="t-title2">CT1 — Consommation</h1>
         <p style={{ fontSize: 15, color: "var(--label-2)", marginTop: 4 }}>
           La pince CT1 doit mesurer l'intégralité de la consommation.
         </p>
@@ -45,7 +49,7 @@ export default function Step2({ state, setState }) {
             <img
               src={schemaCT1}
               alt="Schéma CT1 consommation"
-              style={{ width: "60%", borderRadius: 8, display: "block", margin: "0 auto" }}
+              style={{ width: "85%", borderRadius: 8, display: "block", margin: "0 auto" }}
             />
           </div>
         </div>
@@ -152,11 +156,9 @@ export default function Step2({ state, setState }) {
                   <span className="step-text">{t}</span>
                 </div>
               ))}
-              <div className="numbered-step" style={{ opacity: 0.6 }}>
-                <span className="step-num" style={{ background: "var(--fill-3)", color: "var(--label-2)" }}>⚙</span>
-                <span className="step-text" style={{ fontStyle: "italic" }}>
-                  Optionnel — {INSTRUCTION_OPTIONAL}
-                </span>
+              <div className="numbered-step">
+                <span className="step-num">{INSTRUCTIONS.length + 1}</span>
+                <span className="step-text">{INSTRUCTION_OPTIONAL}</span>
               </div>
             </div>
           </div>
@@ -170,7 +172,7 @@ export default function Step2({ state, setState }) {
             <iframe
               width="100%"
               height="100%"
-              src="https://www.youtube.com/embed/Rg3YvpZ6rgE"
+              src={videoSrc}
               title="Pose CT1"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

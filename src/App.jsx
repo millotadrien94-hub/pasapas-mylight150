@@ -95,8 +95,8 @@ function getVisibleSteps(state) {
   const hasUPG   = compteurs.includes("UPG");
   const isMono   = state.typeInstallation === "mono";
   const isTri    = state.typeInstallation === "tri";
-  const hasSDM120   = compteurs.includes("SDM120")   && isMono;
-  const hasMC1D01RM = compteurs.includes("MC1D01RM") && isMono;
+  const hasSDM120   = compteurs.includes("SDM120");
+  const hasMC1D01RM = compteurs.includes("MC1D01RM");
   const hasMC3D01RM = compteurs.includes("MC3D01RM") && isTri;
   const hasMG3C01RM = compteurs.includes("MG3C01RM") && isTri;
   return STEPS.map((_, i) => {
@@ -135,10 +135,10 @@ function isStepComplete(stepIdx, state) {
     case IDX.UPG_COMPAT:   return allChecked("upgCompat", 1);
     case IDX.UPG_MATERIEL: return allChecked("upgMateriel", 2);
     case IDX.UPG_BRANCH:   return state.upGBranchSubStepDone?.[state.upGBranchementSubStep ?? 0] === true;
-    case IDX.UPG_VERIF:    return state.upGVerifSubStepDone?.[state.upGVerifSubStep ?? 0] === true;
-    case IDX.FIXATION:     return allChecked("step1", 1);
+    case IDX.UPG_VERIF:    return allChecked("upgVerif", 3);
+    case IDX.FIXATION:     return true;
     case IDX.CT1:          return allChecked("step2", 2);
-    case IDX.CT2:          return allChecked("step3", 2);
+    case IDX.CT2:          return true;
     case IDX.CE:           return allChecked("step4", 2);
     case IDX.SDM120:       return true;
     case IDX.MC1D01RM:     return true;
@@ -224,14 +224,6 @@ export default function App() {
         return;
       }
     }
-    if (currentStep === IDX.UPG_VERIF) {
-      const sub = appState.upGVerifSubStep ?? 0;
-      if (sub < 1) {
-        setAppState(prev => ({ ...prev, upGVerifSubStep: sub + 1 }));
-        window.scrollTo({ top: 0, behavior: "instant" });
-        return;
-      }
-    }
     navigate(getNext(currentStep, appState));
   };
 
@@ -252,14 +244,6 @@ export default function App() {
         return;
       }
     }
-    if (currentStep === IDX.UPG_VERIF) {
-      const sub = appState.upGVerifSubStep ?? 0;
-      if (sub > 0) {
-        setAppState(prev => ({ ...prev, upGVerifSubStep: sub - 1 }));
-        window.scrollTo({ top: 0, behavior: "instant" });
-        return;
-      }
-    }
     navigate(getPrev(currentStep, appState));
   };
 
@@ -269,7 +253,7 @@ export default function App() {
   let nextLabel = isLast ? "Terminer" : undefined;
   if (currentStep === IDX.UPM_BRANCH && (appState.upmBranchementSubStep ?? 0) < 2) nextLabel = "Suivant";
   if (currentStep === IDX.UPG_BRANCH && (appState.upGBranchementSubStep ?? 0) < 2)  nextLabel = "Suivant";
-  if (currentStep === IDX.UPG_VERIF  && (appState.upGVerifSubStep ?? 0) < 1)         nextLabel = "Suivant";
+
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
@@ -333,7 +317,7 @@ export default function App() {
         />
       </div>
 
-      {currentStep > 0 && currentStep < STEPS.length - 1 && (
+      {currentStep > 0 && currentStep < STEPS.length - 1 && currentStep !== IDX.FIN && (
         <BottomNav
           onPrev={handlePrev}
           onNext={handleNext}

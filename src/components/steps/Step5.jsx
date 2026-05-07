@@ -1,9 +1,9 @@
-import schemaBdr from "../../assets/BDR connection.png";
+import schemaBdr from "../../assets/Schema_BDR.jpg";
 import Checklist from "../Checklist";
 
 const ITEMS = [
   "Circuit dédié : câble ≥10mm², disjoncteur 16/32A, différentiel type A",
-  "RJ45 sur port AUX du MG3 (pas LAN, pas d'embout industriel)",
+  "RJ45 sur port AUX du Robin Core (pas LAN, pas d'embout industriel)",
   "Flèches visibles sur l'écran de la borne",
 ];
 
@@ -49,7 +49,7 @@ export default function Step5({ state, setState }) {
       </div>
 
       <div className="step-page-section">
-        <p className="list-header">Connexion MG3</p>
+        <p className="list-header">Connexion Robin Core</p>
         <div style={{ padding: "0 16px" }}>
           <div className="list-group" style={{ padding: 14 }}>
             <img src={schemaBdr} alt="Connexion borne de recharge" style={{ width: "60%", display: "block", margin: "0 auto", borderRadius: 8 }} />

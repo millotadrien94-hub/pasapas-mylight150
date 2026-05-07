@@ -29,10 +29,6 @@ export default function Step7({ state }) {
             <p className="summary-cell-value">{modeInstallation}</p>
           </div>
           <div className="summary-cell">
-            <p className="summary-cell-label">Prod.</p>
-            <p className="summary-cell-value">{sensorLabel}</p>
-          </div>
-          <div className="summary-cell">
             <p className="summary-cell-label">Équipements</p>
             <p className="summary-cell-value" style={{ fontSize: 13 }}>
               {[hasCE && "CE", hasBdR && "BdR"].filter(Boolean).join(", ") || "—"}
@@ -44,7 +40,7 @@ export default function Step7({ state }) {
       <div style={{ padding: "0 16px", width: "100%" }}>
         <button
           className="btn-ios btn-filled btn-full"
-          onClick={() => window.open("https://pro.mylight150.com", "_blank")}
+          onClick={() => window.close()}
         >
           Revenir sur mylight150 Pro →
         </button>

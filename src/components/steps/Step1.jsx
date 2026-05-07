@@ -1,21 +1,13 @@
-import schemaImg from "../../assets/Documentation nouvelle gamme - Schéma Coffre Plus mono.jpg";
-import Checklist from "../Checklist";
+import schemaImg from "../../assets/Schéma de principe.jpg";
 
-const ITEMS = [
-  "Etre à proximité du compteur général / 500mA",
-];
-
-export default function Step1({ state, setState }) {
-  const checked = state.etapesCochees?.step1 || Array(ITEMS.length).fill(false);
-  const setChecked = (arr) => setState(prev => ({
-    ...prev,
-    etapesCochees: { ...prev.etapesCochees, step1: arr }
-  }));
-
+export default function Step1() {
   return (
     <div className="step-page">
       <div className="step-page-header">
         <h1 className="t-title2">Schéma de principe</h1>
+        <p style={{ fontSize: 17, color: "var(--label-2)", marginTop: 6 }}>
+          Consultez le schéma avant de commencer le câblage.
+        </p>
       </div>
 
       <div className="step-page-section">
@@ -31,14 +23,19 @@ export default function Step1({ state, setState }) {
         </div>
       </div>
 
-      <Checklist
-        items={ITEMS}
-        checked={checked}
-        onChange={(i, val) => {
-          const next = [...checked]; next[i] = val; setChecked(next);
-        }}
-        title="Vérification"
-      />
+      <div className="step-page-section">
+        <p className="list-header">Instructions</p>
+        <div style={{ padding: "0 16px" }}>
+          <div className="list-group">
+            <div className="numbered-steps">
+              <div className="numbered-step">
+                <span className="step-num">1</span>
+                <span className="step-text">Être à proximité du compteur général / 500 mA.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

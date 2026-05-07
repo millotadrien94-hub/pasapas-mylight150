@@ -1,13 +1,21 @@
-import Checklist from "../Checklist";
 import CheckMark from "../CheckMark";
-import schemaElectrique from "../../assets/CE-electrique.png";
-import schemaThermoSec from "../../assets/CE-thermodynamic_contact sec.png";
-import schemaThermo230 from "../../assets/CE-thermodynamic_230V.png";
+import schemaElectrique from "../../assets/CE-electrique.jpg";
+import schemaThermoSec from "../../assets/CE-thermodynamic_contact sec.jpg";
+import schemaThermo230 from "../../assets/CE-thermodynamic_230V.jpg";
+import schemaElectriqueCore from "../../assets/CE-electrique_Robin Core.jpg";
+import schemaThermoSecCore from "../../assets/CE-thermodynamic_contact sec_Robin Core.jpg";
+import schemaThermo230Core from "../../assets/CE-thermodynamic_230V_Robin Core.jpg";
 
 const SCHEMAS = {
-  electrique:  schemaElectrique,
+  electrique:   schemaElectrique,
   "thermo-sec": schemaThermoSec,
   "thermo-230": schemaThermo230,
+};
+
+const SCHEMAS_CORE = {
+  electrique:   schemaElectriqueCore,
+  "thermo-sec": schemaThermoSecCore,
+  "thermo-230": schemaThermo230Core,
 };
 
 const TYPES = [
@@ -44,23 +52,40 @@ const CONTENT = {
       "Connectez le fil pilote du chauffe-eau : Sur le bornier XNe et XRE2.",
       "Mettre la fonction \"Heure Creuse\" sur le chauffe-eau. Sur l'écran, vérifiez l'entrée « HC/HP ». Cette information varie selon les fabricants.",
     ],
-    items: ["Pilotage 230V câblé sur la sortie dédiée", "Neutre de pilotage connecté"],
+    items: ["Alimentation permanente câblé sur XNe et XPh", "File pilote câble sur la sortie XnE et XRE2"],
   },
 };
 
 export default function Step3({ state, setState }) {
-  const ceType = state.ceType || "electrique";
-  const setCeType = (v) => setState(prev => ({
-    ...prev, ceType: v,
-    etapesCochees: { ...prev.etapesCochees, step3: [] },
-  }));
+  const isMono = state.typeInstallation === "mono";
+  const hasCE  = (state.equipements || []).includes("CE");
 
+  const ceType = state.ceType || "electrique";
+  const isRobinCore = state.coffretSelectionne === "MG3";
+  const schemas = isRobinCore ? SCHEMAS_CORE : SCHEMAS;
+
+  if (isMono && !hasCE) {
+    return (
+      <div className="step-page">
+        <div className="step-page-header">
+          <h1 className="t-title2">CT2 — Chauffe-eau</h1>
+        </div>
+        <div style={{ padding: "0 16px" }}>
+          <div className="notice notice-green">
+            <span className="notice-icon">✓</span>
+            <div className="notice-body">
+              <p className="notice-title">Aucune action requise</p>
+              <p className="notice-text">
+                Vous n'avez pas de chauffe-eau à raccorder. Vous pouvez continuer.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  const setCeType = (v) => setState(prev => ({ ...prev, ceType: v }));
   const content = CONTENT[ceType];
-  const checked = state.etapesCochees?.step3 || Array(content.items.length).fill(false);
-  const setChecked = (arr) => setState(prev => ({
-    ...prev,
-    etapesCochees: { ...prev.etapesCochees, step3: arr }
-  }));
 
   return (
     <div className="step-page">
@@ -73,7 +98,7 @@ export default function Step3({ state, setState }) {
           <span className="notice-icon">⚠️</span>
           <div className="notice-body">
             <p className="notice-title">Ne pas passer par le contacteur heures creuses</p>
-            <p className="notice-text">Le coffret MG3 gère directement l'optimisation.</p>
+            <p className="notice-text">Le Coffret Robin gère directement l'optimisation.</p>
           </div>
         </div>
       </div>
@@ -108,7 +133,7 @@ export default function Step3({ state, setState }) {
         <p className="list-header">Schéma</p>
         <div style={{ padding: "0 16px" }}>
           <div className="list-group" style={{ padding: 14 }}>
-            <img src={SCHEMAS[ceType]} alt={`Schéma ${ceType}`} style={{ width: "100%", borderRadius: 8 }} />
+            <img src={schemas[ceType]} alt={`Schéma ${ceType}`} style={{ width: "100%", borderRadius: 8 }} />
           </div>
         </div>
       </div>
@@ -129,12 +154,6 @@ export default function Step3({ state, setState }) {
         </div>
       </div>
 
-      <Checklist
-        items={content.items}
-        checked={checked}
-        onChange={(i, val) => { const next = [...checked]; next[i] = val; setChecked(next); }}
-        title="Vérifications"
-      />
     </div>
   );
 }

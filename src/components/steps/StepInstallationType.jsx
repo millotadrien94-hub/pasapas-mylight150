@@ -1,18 +1,8 @@
 import CheckMark from "../CheckMark";
 
 const OPTIONS = [
-  {
-    id: "mono",
-    label: "Monophasé",
-    desc: "1 phase — installation résidentielle standard",
-    icon: "〜",
-  },
-  {
-    id: "tri",
-    label: "Triphasé",
-    desc: "3 phases — installation industrielle ou grande puissance",
-    icon: "≋",
-  },
+  { id: "mono", label: "Monophasé", icon: "〜" },
+  { id: "tri",  label: "Triphasé",  icon: "≋" },
 ];
 
 export default function StepInstallationType({ state, setState }) {
@@ -29,10 +19,7 @@ export default function StepInstallationType({ state, setState }) {
       </div>
 
       <div className="step-page-section">
-        <p className="list-header" style={{ paddingBottom: 6 }}>
-          Vérifiez sur votre compteur Linky
-        </p>
-        <div className="list-group" style={{ margin: "0 16px" }}>
+<div className="list-group" style={{ margin: "0 16px" }}>
           {OPTIONS.map(opt => {
             const sel = selected === opt.id;
             return (
@@ -53,7 +40,6 @@ export default function StepInstallationType({ state, setState }) {
                 </div>
                 <div className="list-row-content">
                   <p className="list-row-title" style={{ fontWeight: 500 }}>{opt.label}</p>
-                  {opt.desc && <p className="list-row-subtitle">{opt.desc}</p>}
                 </div>
                 <div className="list-row-trailing">
                   <div className={`check-circle ${sel ? "checked" : ""}`}>

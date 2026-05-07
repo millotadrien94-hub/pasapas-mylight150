@@ -12,14 +12,14 @@ const EQUIPEMENTS_ALL = [
   },
   {
     id: "BdR",
-    label: "Borne de recharge",
+    label: "Borne de recharge mylight150",
     desc: "Véhicule électrique",
     icon: iconBdr,
   },
   {
     id: "PAC",
     label: "Pompe à chaleur",
-    desc: "PAC air/air ou air/eau",
+    desc: "PAC air/eau",
     icon: iconPac,
   },
   {

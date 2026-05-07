@@ -16,15 +16,15 @@ const PINCES = [
 ];
 
 const MODULES = [
-  { id: "UPM", name: "Robin Link (UPM)",   desc: "Communication sans fil W-Modbus jusqu'à 400 mètres", img: upmImg },
-  { id: "UPG", name: "Robin Heat (UPG H)", desc: "Pilotage via SG-Ready",                              img: upmImg },
+  { id: "UPM", name: "Robin Link", sub: "Ex : UPM",   desc: "Communication sans fil W-Modbus jusqu'à 400 mètres", img: upmImg },
+  { id: "UPG", name: "Robin Heat", sub: "Ex : Robin Heat", desc: "Pilotage pompe à chaleur air/eau",               img: upmImg },
 ];
 
 export default function StepCompteurs({ state, setState }) {
   const selected = state.compteursSupplementaires || [];
   const isTri = state.typeInstallation === "tri";
   const eq = state.equipements || [];
-  const hideMono = isTri && (eq.includes("PAC") || eq.includes("BdR"));
+  const hideMono = isTri && (eq.includes("PAC") || eq.includes("BdR")) && !eq.includes("CE");
 
   const traversants = TRAVERSANTS.filter(c => {
     if (c.id === "MC3D01RM") return isTri;
@@ -87,7 +87,7 @@ export default function StepCompteurs({ state, setState }) {
       </div>
 
       <Section
-        title="Compteurs traversants"
+        title={isTri ? "Compteurs traversants" : "Compteur traversant"}
         desc="Le câble électrique passe à l'intérieur"
         items={traversants}
         selected={selected}
@@ -95,7 +95,7 @@ export default function StepCompteurs({ state, setState }) {
       />
 
       <Section
-        title="Compteurs à pinces"
+        title={isTri ? "Compteurs à pinces" : "Compteur à pince"}
         desc="Se clippe autour du câble existant"
         items={pinces}
         selected={selected}
@@ -146,6 +146,7 @@ function Section({ title, desc, items, selected, onToggle }) {
               </div>
               <div className="list-row-content">
                 <p className="list-row-title" style={{ fontWeight: 500 }}>{item.name}</p>
+                {item.sub && <p style={{ fontSize: 12, color: "var(--color-text-secondary)", marginTop: 1 }}>{item.sub}</p>}
                 <p className="list-row-subtitle">{item.desc}</p>
               </div>
               <div className="list-row-trailing" style={{ gap: 6, display: "flex", alignItems: "center" }}>

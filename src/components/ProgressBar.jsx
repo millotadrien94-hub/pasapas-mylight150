@@ -8,13 +8,13 @@ const STEP_LABELS = [
   "CT1 — Consommation",    // 6
   "CT2 — Chauffe-eau",     // 7
   "CT3 — Production",      // 8  optionnel
-  "UPM — Compatibilité",   // 9  optionnel
-  "UPM — Raccordement",    // 10 optionnel
-  "UPM — Vérification",    // 11 optionnel
-  "UPG — Compatibilité",   // 12 optionnel
-  "UPG — Matériel",        // 13 optionnel
-  "UPG — Raccordement",    // 14 optionnel
-  "UPG — Vérification",    // 15 optionnel
+  "Robin Link — Compatibilité", // 9  optionnel
+  "Robin Link — Raccordement",  // 10 optionnel
+  "Robin Link — Vérification",  // 11 optionnel
+  "Robin Heat — Compatibilité", // 12 optionnel
+  "Robin Heat — Matériel",      // 13 optionnel
+  "Robin Heat — Raccordement",  // 14 optionnel
+  "Robin Heat — Vérification",  // 15 optionnel
   "Compteur SDM120",       // 16 optionnel
   "Compteur MC1D01RM",     // 17 optionnel
   "Compteur MC3D01RM",     // 18 optionnel
@@ -43,8 +43,8 @@ function getVisible(appState) {
     if (i === 13 && !hasUPG)                                         return false;
     if (i === 14 && !hasUPG)                                         return false;
     if (i === 15 && !hasUPG)                                         return false;
-    if (i === 16 && !(compteurs.includes("SDM120")   && isMono))    return false;
-    if (i === 17 && !(compteurs.includes("MC1D01RM") && isMono))    return false;
+    if (i === 16 && !compteurs.includes("SDM120"))                   return false;
+    if (i === 17 && !compteurs.includes("MC1D01RM"))                 return false;
     if (i === 18 && !(compteurs.includes("MC3D01RM") && isTri))     return false;
     if (i === 19 && !(compteurs.includes("MG3C01RM") && isTri))     return false;
     if (i === 20 && !eq.includes("BdR"))                             return false;

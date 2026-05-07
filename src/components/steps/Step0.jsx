@@ -22,7 +22,7 @@ const EQUIPEMENTS_ADDITIONNELS = [
   { id: "PAC",  name: "Ajouter une PAC" },
   { id: "CE",   name: "Ajouter un Chauffe-eau" },
   { id: "UPM",  name: "Ajouter un UPM" },
-  { id: "UPG",  name: "Ajouter un UPG" },
+  { id: "UPG",  name: "Ajouter un Robin Heat" },
 ];
 
 export default function Step0({ state, setState }) {

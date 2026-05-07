@@ -1,7 +1,7 @@
 import { useState } from "react";
-import schemaModem from "../../assets/Connexion_modem.png";
-import schemaWifi from "../../assets/Connexion_Wifi.png";
-import schemaCPL from "../../assets/Connexion_CPL.png";
+import schemaModem from "../../assets/Connexion_modem.jpg";
+import schemaWifi from "../../assets/Connexion_Wifi.jpg";
+import schemaCPL from "../../assets/Connexion_CPL.jpg";
 import CheckMark from "../CheckMark";
 
 const TYPES = [
@@ -20,7 +20,7 @@ export default function StepInternet({ state, setState }) {
   return (
     <div className="step-page">
       <div className="step-page-header">
-        <h1 className="t-title2">Connecter la MG3 à internet</h1>
+        <h1 className="t-title2">Connecter Robin Core à Internet</h1>
       </div>
 
       <div className="step-page-section">

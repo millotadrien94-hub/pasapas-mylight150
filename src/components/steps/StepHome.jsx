@@ -1,20 +1,7 @@
-const AJOUTS = [
-  { id: "PAC",  label: "PAC" },
-  { id: "CE",   label: "Chauffe-eau" },
-  { id: "BdR",  label: "Borne de recharge" },
-  { id: "UPM",  label: "UPM" },
-  { id: "UPG",  label: "UPG" },
-];
-
-export default function StepHome({ setState, onNext, onAjout }) {
+export default function StepHome({ setState, onNext }) {
   const handleNouvelleInstallation = () => {
     setState(prev => ({ ...prev, mode: "nouvelle" }));
     onNext();
-  };
-
-  const handleAjout = (eq) => {
-    setState(prev => ({ ...prev, mode: "ajout", equipementAjoute: eq.id }));
-    onAjout();
   };
 
   return (
@@ -56,36 +43,33 @@ export default function StepHome({ setState, onNext, onAjout }) {
       </div>
 
       {/* Ajout sur installation existante */}
-      <div className="step-page-section">
-        <p className="list-header">Ajouter sur une installation existante</p>
-        <div style={{
-          display: "flex",
-          gap: 8,
-          overflowX: "auto",
-          padding: "2px 16px 12px",
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-        }}>
-          {AJOUTS.map(eq => (
-            <button
-              key={eq.id}
-              onClick={() => handleAjout(eq)}
-              style={{
-                flexShrink: 0,
-                padding: "10px 18px",
-                borderRadius: 99,
-                border: "1px solid var(--color-border)",
-                background: "var(--color-bg-card)",
-                color: "var(--color-text-primary)",
-                fontSize: 15,
-                fontWeight: 500,
-                cursor: "pointer",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {eq.label}
-            </button>
-          ))}
+      <div style={{ margin: "-20px 16px 0" }}>
+        <div
+          className="sel-card"
+          style={{ opacity: 0.45, cursor: "not-allowed" }}
+        >
+          <div style={{
+            width: 52, height: 52, borderRadius: 14,
+            background: "var(--color-border)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            flexShrink: 0,
+          }}>
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="var(--color-text-secondary)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="16" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+            </svg>
+          </div>
+          <div className="sel-card-body">
+            <p className="sel-card-name">Ajouter un équipement sur une installation existante</p>
+            <div className="sel-card-tags">
+              <span className="tag-pill">Coming soon</span>
+              <span className="tag-pill">PAC</span>
+              <span className="tag-pill">Chauffe-eau</span>
+              <span className="tag-pill">Borne de recharge</span>
+            </div>
+          </div>
+          <div style={{ color: "var(--label-3)", fontSize: 22, flexShrink: 0 }}>›</div>
         </div>
       </div>
     </div>
