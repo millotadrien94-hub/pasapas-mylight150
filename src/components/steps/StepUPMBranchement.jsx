@@ -2,6 +2,7 @@ import { useState } from "react";
 import CheckMark from "../CheckMark";
 import schemaSans from "../../assets/Schema_Robin Link_Sans compteur.jpg";
 import schemaAvec from "../../assets/Schema_Robin Link_Avec compteur.jpg";
+import schemaCablage from "../../assets/Robin Link_Cablage transformateur.jpg";
 
 // ─── Primitives ────────────────────────────────────────────────────────────
 
@@ -137,6 +138,14 @@ export default function StepUPMBranchement({ state, setState }) {
                 ["V+", "VCC"],
                 ["V−", "GND"],
               ]} />
+            </div>
+          </div>
+
+          <div className="step-page-section">
+            <div style={{ padding: "0 16px" }}>
+              <div className="list-group" style={{ padding: 14 }}>
+                <img src={schemaCablage} alt="Câblage transformateur Robin Link" style={{ width: "100%", borderRadius: 8 }} />
+              </div>
             </div>
           </div>
 
