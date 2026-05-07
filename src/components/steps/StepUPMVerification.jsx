@@ -77,106 +77,109 @@ export default function StepUPMVerification({ state, setState }) {
         <div style={{ padding: "0 16px", display: "flex", flexDirection: "column", gap: 10 }}>
           <InfoRow icon="✅" label="Voyant PWR rouge fixe visible sur les deux boîtiers W-Modbus (émetteur + récepteur)" />
           <InfoRow icon="✅" label="Bouton switch rouge (1 & 2) sur ON — situé à côté de l'antenne, sur chaque boîtier" />
-          <InfoRow icon="✅" label="Voyants TXD et RXD clignotent rapidement sur les deux boîtiers simultanément" />
-        </div>
-
-        <div style={{ padding: "12px 16px 0" }}>
-          <button
-            onClick={() => setTxdOpen(o => !o)}
-            style={{
-              width: "100%", textAlign: "left",
-              background: "var(--color-warning-light)", border: "none", borderRadius: 8,
-              padding: "10px 14px", cursor: "pointer",
-              display: "flex", justifyContent: "space-between", alignItems: "center",
-              borderLeft: "3px solid var(--color-warning)",
-            }}
-          >
-            <span style={{ fontSize: 14, fontWeight: 600, color: "var(--color-warning-dark)" }}>
-              ⚠️ TXD/RXD ne clignotent pas ?
-            </span>
-            <span style={{ color: "var(--color-warning-dark)", fontSize: 16 }}>{txdOpen ? "▲" : "▼"}</span>
-          </button>
-          {txdOpen && (
-            <div style={{ ...BANNER_ORANGE, borderRadius: "0 0 8px 8px", marginTop: -4 }}>
-              <p style={{ fontSize: 14, lineHeight: 1.5 }}>
-                Vérifiez le positionnement des antennes : elles doivent se voir sans aucun obstacle.
-                Ajustez jusqu'à obtenir le clignotement rapide.
-              </p>
-            </div>
-          )}
         </div>
       </div>
 
-      {/* Section B — Signification des voyants */}
+      {/* Section — Déclarer dans mylight150 Pro */}
       <div className="step-page-section">
-        <p className="list-header" style={{ padding: "0 16px 8px" }}>B — Signification des voyants</p>
-        <div style={{ margin: "0 16px", borderRadius: 12, overflow: "hidden", border: "1px solid var(--separator)" }}>
-          {[
-            ["TXD", "Transmission (envoi de données)"],
-            ["RXD", "Réception"],
-          ].map(([voyant, desc], i) => (
-            <div key={voyant} style={{
-              display: "flex", gap: 0,
-              borderTop: i > 0 ? "1px solid var(--separator)" : "none",
-            }}>
-              <div style={{ width: 64, padding: "12px 16px", background: "var(--fill-1)", flexShrink: 0 }}>
-                <p style={{ fontFamily: "monospace", fontWeight: 700, fontSize: 14 }}>{voyant}</p>
-              </div>
-              <div style={{ padding: "12px 16px", borderLeft: "1px solid var(--separator)" }}>
-                <p style={{ fontSize: 14, color: "var(--label-1)" }}>{desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-        <p style={{ fontSize: 13, color: "var(--label-3)", padding: "8px 16px 0", fontStyle: "italic" }}>
-          Les deux doivent clignoter ensemble
-        </p>
-      </div>
-
-      {/* Section C — Déclarer dans mylight150 Pro */}
-      <div className="step-page-section">
-        <p className="list-header" style={{ padding: "0 16px 8px" }}>C — Déclarer dans mylight150 Pro</p>
+        <p className="list-header" style={{ padding: "0 16px 8px" }}>Déclarer dans mylight150 Pro</p>
         <div style={{ padding: "0 16px", display: "flex", flexDirection: "column", gap: 10 }}>
+
           <div style={BANNER_BLUE}>
             <p style={{ fontSize: 14, lineHeight: 1.5 }}>
-              ℹ️ <strong>Étape indispensable</strong> — le coffret ne fonctionnera pas sans cette déclaration.
+              ℹ️ Une fois la déclaration faite sur mylight150 Pro, les voyants TXD et RXD clignotent rapidement sur les deux boîtiers simultanément.
             </p>
           </div>
 
-          {[
-            {
-              n: 1,
-              title: "Déclarer le Robin Link dans l'application",
-              body: "Sans déclaration, les voyants TXD/RXD ne clignoteront pas et la communication avec la MG3 ne sera pas établie.",
-            },
-            {
-              n: 2,
-              title: "Vérifier les mesures après mise en service",
-              body: isTri
-                ? "3 valeurs négatives sur le compteur = correct"
-                : "Valeur négative sur le compteur = correct",
-            },
-          ].map(step => (
-            <div key={step.n} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-              <div style={{
-                width: 28, height: 28, borderRadius: "50%", background: "var(--color-primary)",
-                color: "white", display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 13, fontWeight: 700, flexShrink: 0, marginTop: 1,
-              }}>{step.n}</div>
-              <div>
-                <p style={{ fontWeight: 600, fontSize: 14, marginBottom: 2 }}>{step.title}</p>
-                <p style={{ fontSize: 14, color: "var(--label-2)", lineHeight: 1.5 }}>{step.body}</p>
+          {/* Point 1 */}
+          <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+            <div style={{
+              width: 28, height: 28, borderRadius: "50%", background: "var(--color-primary)",
+              color: "white", display: "flex", alignItems: "center", justifyContent: "center",
+              fontSize: 13, fontWeight: 700, flexShrink: 0, marginTop: 1,
+            }}>1</div>
+            <div style={{ flex: 1 }}>
+              <p style={{ fontWeight: 600, fontSize: 14, marginBottom: 4 }}>Déclarer le Robin Link dans l'application</p>
+              <p style={{ fontSize: 14, color: "var(--label-2)", lineHeight: 1.5, marginBottom: 10 }}>
+                Sans déclaration, les voyants TXD/RXD ne clignoteront pas et la communication avec la MG3 ne sera pas établie.
+              </p>
+
+              {/* Accordéon TXD/RXD ne clignotent pas — déplacé depuis section A */}
+              <button
+                onClick={() => setTxdOpen(o => !o)}
+                style={{
+                  width: "100%", textAlign: "left",
+                  background: "var(--color-warning-light)", border: "none", borderRadius: txdOpen ? "8px 8px 0 0" : 8,
+                  padding: "10px 14px", cursor: "pointer",
+                  display: "flex", justifyContent: "space-between", alignItems: "center",
+                  borderLeft: "3px solid var(--color-warning)",
+                }}
+              >
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--color-warning-dark)" }}>
+                  ⚠️ TXD/RXD ne clignotent pas ?
+                </span>
+                <span style={{ color: "var(--color-warning-dark)", fontSize: 16 }}>{txdOpen ? "▲" : "▼"}</span>
+              </button>
+              {txdOpen && (
+                <div style={{ ...BANNER_ORANGE, borderRadius: "0 0 8px 8px", marginTop: -1 }}>
+                  <p style={{ fontSize: 14, lineHeight: 1.5 }}>
+                    Vérifiez le positionnement des antennes : elles doivent se voir sans aucun obstacle.
+                    Ajustez jusqu'à obtenir le clignotement rapide.
+                  </p>
+                </div>
+              )}
+
+              {/* Tableau TXD/RXD — déplacé depuis section B */}
+              <div style={{ marginTop: 12, borderRadius: 10, overflow: "hidden", border: "1px solid var(--separator)" }}>
+                {[
+                  ["TXD", "Transmission (envoi de données)"],
+                  ["RXD", "Réception"],
+                ].map(([voyant, desc], i) => (
+                  <div key={voyant} style={{
+                    display: "flex",
+                    borderTop: i > 0 ? "1px solid var(--separator)" : "none",
+                  }}>
+                    <div style={{ width: 64, padding: "12px 16px", background: "var(--fill-1)", flexShrink: 0 }}>
+                      <p style={{ fontFamily: "monospace", fontWeight: 700, fontSize: 14 }}>{voyant}</p>
+                    </div>
+                    <div style={{ padding: "12px 16px", borderLeft: "1px solid var(--separator)" }}>
+                      <p style={{ fontSize: 14, color: "var(--label-1)" }}>{desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
+              <p style={{ fontSize: 13, color: "var(--label-3)", padding: "6px 0 0", fontStyle: "italic" }}>
+                Les deux doivent clignoter ensemble
+              </p>
             </div>
-          ))}
-
-          <div style={BANNER_ORANGE}>
-            <p style={{ fontSize: 14, lineHeight: 1.5 }}>
-              ⚠️ <strong>Valeurs incohérentes (mélange +/−) ?</strong><br />
-              Inversez la position des pinces dont la polarité est erronée.
-              Toutes les phases doivent afficher des valeurs négatives sur le compteur.
-            </p>
           </div>
+
+          {/* Point 2 */}
+          <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+            <div style={{
+              width: 28, height: 28, borderRadius: "50%", background: "var(--color-primary)",
+              color: "white", display: "flex", alignItems: "center", justifyContent: "center",
+              fontSize: 13, fontWeight: 700, flexShrink: 0, marginTop: 1,
+            }}>2</div>
+            <div style={{ flex: 1 }}>
+              <p style={{ fontWeight: 600, fontSize: 14, marginBottom: 4 }}>Vérifier les mesures après mise en service</p>
+              <p style={{ fontSize: 14, color: "var(--label-2)", lineHeight: 1.5 }}>
+                {isTri
+                  ? "3 valeurs négatives sur le compteur = Correct MAIS 3 valeurs positives sur mylight150 Pro"
+                  : "Valeur négative sur le compteur = Correct MAIS Valeur positive sur mylight150 Pro"}
+              </p>
+
+              {/* Alerte sens des pinces — uniquement en triphasé */}
+              {isTri && (
+                <div style={{ ...BANNER_ORANGE, marginTop: 10 }}>
+                  <p style={{ fontSize: 14, lineHeight: 1.6 }}>
+                    ⚠️ Vérifiez tout d'abord le sens de vos pinces (si pince de consommation → direction 500mA) (si pince de production → direction champ solaire). Si vos pinces sont dans la bonne direction mais que les valeurs affichées dans mylight150 Pro sont négatives, alors inversez la position des pinces pour avoir des valeurs positives.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -202,7 +205,9 @@ export default function StepUPMVerification({ state, setState }) {
           <CheckRow
             checked={!!checks[1]}
             onToggle={() => toggle(1)}
-            label="Les mesures affichent des valeurs négatives dans mylight150 Pro"
+            label={isTri
+              ? "Les valeurs affichent 3 valeurs positives dans mylight150 Pro."
+              : "La mesure affiche une valeur positive sur mylight150 Pro."}
           />
         </div>
       </div>
